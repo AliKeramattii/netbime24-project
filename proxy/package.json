@@ -1,0 +1,14 @@
+{
+  "name": "netbime24-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Same-origin backend proxy for the NetBime24 frontend: adds the backend Bearer token server-side.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

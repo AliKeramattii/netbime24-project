@@ -1,0 +1,357 @@
+.education-card,
+.employment-card {
+  min-block-size: 714px;
+}
+
+.education-fields {
+  margin-block-start: 55px;
+  row-gap: 22px;
+}
+
+.employment-header {
+  margin-block-end: 38px;
+}
+
+.employment-choice {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.employment-choice legend {
+  margin-block-end: 9px;
+  color: rgb(11 30 60 / 50%);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.employment-options {
+  display: grid;
+  grid-template-columns: repeat(2, 120px);
+  gap: 32px;
+  inline-size: 272px;
+}
+
+.employment-option {
+  block-size: 42px;
+  border: 1px solid rgb(11 30 60 / 35%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 15px 12px;
+  color: rgb(11 30 60 / 75%);
+  cursor: pointer;
+}
+
+.employment-option.is-selected {
+  border-color: var(--color-primary);
+}
+
+.employment-option:has(input:focus-visible) {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.employment-option input[type="radio"] {
+  appearance: none;
+  inline-size: 19px;
+  block-size: 19px;
+  border: 1.5px solid rgb(11 30 60 / 55%);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  background: var(--color-white);
+}
+
+.employment-option input[type="radio"]::before {
+  content: "";
+  inline-size: 11px;
+  block-size: 11px;
+  border-radius: 50%;
+  transform: scale(0);
+  background: var(--color-primary);
+}
+
+.employment-option input[type="radio"]:checked {
+  border-color: var(--color-primary);
+}
+
+.employment-option input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.employment-records {
+  margin-block-start: 18px;
+}
+
+.employment-record {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.employment-record-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 273px));
+  gap: 18px 30px;
+}
+
+.employment-date-group > p {
+  margin-block-end: 8px;
+  color: rgb(11 30 60 / 50%);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.employment-date-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.employment-date-field label {
+  display: none;
+}
+
+.employment-date-field.select-field::after {
+  inset-block-start: 19px;
+}
+
+.employment-end-group.is-disabled {
+  opacity: 0.48;
+}
+
+.currently-employed {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-block-start: 20px;
+  color: var(--color-ink);
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.currently-employed input {
+  appearance: none;
+  inline-size: 20px;
+  block-size: 20px;
+  border: 1.4px solid var(--color-ink);
+  border-radius: 5px;
+  background: var(--color-white);
+  display: grid;
+  place-content: center;
+}
+
+.currently-employed input::before {
+  content: "✓";
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  transform: scale(0);
+}
+
+.currently-employed input:checked {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.currently-employed input:checked::before {
+  transform: scale(1);
+}
+
+.add-employment-button {
+  margin-block-start: 22px;
+  margin-inline-start: 0;
+  block-size: 42px;
+  min-inline-size: 168px;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 7px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  font-family: inherit;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+}
+
+.add-employment-button span {
+  font-size: 28px;
+  line-height: 1;
+  font-family: var(--font-body);
+  font-weight: 300;
+}
+
+.employment-divider {
+  border: 0;
+  border-block-start: 1px solid rgb(11 30 60 / 20%);
+  margin: 21px 0 18px;
+}
+
+.employment-card.has-history {
+  min-block-size: 714px;
+}
+
+.employment-card.has-multiple-records,
+.employment-card.has-multiple-records .registration-details-form {
+  min-block-size: 930px;
+}
+
+.registration-next-button.is-final {
+  inline-size: 122px;
+  gap: 9px;
+}
+
+.final-check {
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.has-success-state .registration-workspace {
+  padding-block-start: 52px;
+}
+
+.has-success-state .registration-stepper-mount {
+  display: none;
+}
+
+.has-success-state .registration-details-wrap {
+  inline-size: min(1276px, calc(100% - 96px));
+  margin-block-start: 0;
+}
+
+.success-card {
+  min-block-size: 824px;
+  border-radius: 22px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.success-content {
+  margin-block-start: -112px;
+  text-align: center;
+  padding-inline: 24px;
+}
+
+.success-check {
+  inline-size: 84px;
+  block-size: 84px;
+  margin-inline: auto;
+}
+
+.success-content h1 {
+  margin-block-start: 45px;
+  color: var(--color-ink);
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.7;
+}
+
+.success-content p {
+  max-inline-size: 790px;
+  margin: 20px auto 0;
+  color: rgb(11 30 60 / 55%);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 2;
+}
+
+@media (max-width: 700px) {
+  .education-fields,
+  .employment-record-grid {
+    grid-template-columns: 1fr;
+  }
+  .employment-options {
+    inline-size: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .employment-date-pair {
+    gap: 12px;
+  }
+  .employment-card.has-multiple-records,
+  .employment-card.has-multiple-records .registration-details-form {
+    min-block-size: auto;
+  }
+  .add-employment-button {
+    inline-size: 100%;
+  }
+  .has-success-state .registration-details-wrap {
+    inline-size: calc(100% - 24px);
+  }
+  .success-card {
+    min-block-size: calc(100svh - 160px);
+  }
+  .success-content {
+    margin-block-start: -48px;
+  }
+  .success-content h1 {
+    font-size: 20px;
+  }
+}
+
+/* Employment content grows naturally; actions stay below dynamic records. */
+.employment-card .employment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.employment-card .registration-form-actions {
+  position: static;
+  inset: auto;
+  flex: 0 0 auto;
+  margin-block-start: auto;
+  padding-block-start: 32px;
+}
+
+.employment-record-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block-end: 12px;
+  color: rgb(11 30 60 / 58%);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.remove-employment-button {
+  border: 0;
+  background: transparent;
+  color: var(--color-code-error);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 5px 7px;
+  border-radius: 5px;
+}
+
+.remove-employment-button:hover,
+.remove-employment-button:focus-visible {
+  background: rgb(219 69 69 / 8%);
+}
+
+.employment-date-error {
+  margin-block-start: 6px;
+}
+
+.employment-date-group:has(.employment-date-error:not([hidden])) .registration-select {
+  border-color: var(--color-code-error);
+}
+
+/* Keep the post-registration journey action below the success copy. */
+.success-content [data-enter-dashboard] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: auto;
+  max-inline-size: 100%;
+  margin-block-start: 24px;
+  text-decoration: none;
+}

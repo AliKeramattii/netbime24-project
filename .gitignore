@@ -1,0 +1,16 @@
+node_modules/
+coverage/
+qa/steps-browser/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.env
+.env.local
+# Backend privateKey for the proxy. Never commit it (see proxy/.env.example).
+proxy/.env
+# Backend privateKey for direct mode. Not committed, but it MUST be uploaded to the server.
+js/api/private-key.js
+
+# Source archive as delivered (contains proxy/.env and js/api/private-key.js). Never commit it.
+*.zip

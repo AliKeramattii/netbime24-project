@@ -1,0 +1,1599 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B1E3C" />
+    <title>ثبت نام | نت بیمه ۲۴</title>
+    <link rel="icon" href="data:," />
+    <link
+      rel="preload"
+      href="assets/fonts/IRANSansX-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/typography.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="shared/dashboard/dashboard.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/register.css" />
+    <link rel="stylesheet" href="css/registration-identity-contact.css" />
+    <link rel="stylesheet" href="css/registration-education-employment.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
+    <netbime-header id="app-header" home-href="#" hidden></netbime-header>
+
+    <main id="entry-layout" class="registration-layout">
+      <aside class="brand-panel" aria-label="نت بیمه ۲۴">
+        <header class="brand-content">
+          <img
+            class="brand-logo"
+            src="assets/images/brand-illustration.webp"
+            width="690"
+            height="720"
+            alt="نت بیمه ۲۴ — Net Bimeh 24"
+          />
+          <h2>سامانه سازمان فروش</h2>
+          <p>به خانواده بزرگ کارگزاری نت بیمه 24 خوش آمدید</p>
+        </header>
+        <nav class="brand-links" aria-label="راهنما و پشتیبانی">
+          <button type="button" data-dialog="guide">راهنمای ثبت نام</button>
+          <span aria-hidden="true">•</span>
+          <button type="button" data-dialog="support">تماس با پشتیبانی</button>
+        </nav>
+      </aside>
+      <section class="registration-region" aria-label="ورود و ثبت نام">
+        <div id="registration-card" class="registration-card"></div>
+        <noscript
+          >برای ادامه ثبت نام، جاوااسکریپت مرورگر خود را فعال کنید.</noscript
+        >
+      </section>
+    </main>
+
+    <main id="registration-workspace" class="registration-workspace" hidden>
+      <div id="registration-stepper" class="registration-stepper-mount"></div>
+      <section class="registration-details-wrap" aria-label="فرم ثبت نام">
+        <div
+          id="registration-details-card"
+          class="registration-details-card"
+        ></div>
+      </section>
+    </main>
+
+    <p id="app-status" class="sr-only" role="status" aria-live="polite"></p>
+
+    <dialog id="information-dialog" aria-labelledby="dialog-title">
+      <h2 id="dialog-title"></h2>
+      <p id="dialog-content"></p>
+      <form method="dialog">
+        <button class="button button-primary" autofocus>بستن</button>
+      </form>
+    </dialog>
+
+    <div id="app-dialog-copy" hidden>
+      <div data-dialog-copy="guide">
+        <span data-dialog-title>راهنمای ثبت نام</span>
+        <span data-dialog-message
+          >شماره موبایل را وارد و تأیید کنید، سپس اطلاعات هویتی، تماس، سوابق
+          تحصیلی و سوابق شغلی را تکمیل کنید.</span
+        >
+      </div>
+      <div data-dialog-copy="support">
+        <span data-dialog-title>تماس با پشتیبانی</span>
+        <span data-dialog-message
+          >اطلاعات تماس پشتیبانی هنوز در منابع طراحی ارائه نشده است.</span
+        >
+      </div>
+      <div data-dialog-copy="account-locked">
+        <span data-dialog-title>حساب کاربری</span>
+        <span data-dialog-message
+          >این بخش پس از تکمیل ثبت نام در دسترس قرار می‌گیرد.</span
+        >
+      </div>
+      <div data-dialog-copy="registration-notifications">
+        <span data-dialog-title>اعلان‌ها</span>
+        <span data-dialog-message
+          >در منابع طراحی ثبت نام، رفتار مستقلی برای اعلان‌ها تعریف نشده
+          است.</span
+        >
+      </div>
+      <div data-dialog-copy="account-unavailable">
+        <span data-dialog-title>حساب کاربری</span>
+        <span data-dialog-message
+          >صفحه حساب کاربری خارج از محدوده جریان ثبت نام ارائه‌شده است.</span
+        >
+      </div>
+      <div data-dialog-copy="logout-error">
+        <span data-dialog-title>خروج</span>
+        <span data-dialog-message>خروج از حساب انجام نشد.</span>
+      </div>
+    </div>
+
+    <template id="registration-mobile-template">
+      <form class="mobile-form" novalidate aria-labelledby="form-title">
+        <header>
+          <div class="form-heading">
+            <h1 id="form-title" tabindex="-1">ورود یا ثبت نام</h1>
+          </div>
+          <p class="form-intro">
+            برای ورود به سامانه شماره موبایل خود را وارد کنید
+          </p>
+        </header>
+        <div class="mobile-fields">
+          <label class="form-label" for="mobile">شماره موبایل</label>
+          <div class="input-wrap">
+            <input
+              class="form-input"
+              id="mobile"
+              name="mobile"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel-national"
+              dir="ltr"
+              maxlength="20"
+              required
+              placeholder="شماره موبایل خود را وارد کنید..."
+              aria-describedby="mobile-error"
+            />
+            <img
+              class="input-icon"
+              src="assets/icons/mobile.svg"
+              alt=""
+              width="26"
+              height="36"
+            />
+            <img
+              class="error-icon"
+              src="assets/icons/error.svg"
+              alt=""
+              width="22"
+              height="22"
+              hidden
+            />
+          </div>
+          <p
+            class="field-error"
+            id="mobile-error"
+            aria-live="polite"
+            hidden
+          ></p>
+        </div>
+        <button class="button button-primary" type="submit">تایید</button>
+      </form>
+    </template>
+
+    <template id="registration-code-template">
+      <form class="code-form" novalidate aria-labelledby="form-title">
+        <header>
+          <div class="form-heading">
+            <button
+              class="icon-button back-button"
+              type="button"
+              aria-label="بازگشت به شماره موبایل"
+            >
+              <img src="assets/icons/back.svg" alt="" width="26" height="28" />
+            </button>
+            <h1 id="form-title" tabindex="-1">کد تأیید</h1>
+          </div>
+          <p class="form-intro">
+            کد تأیید ارسال شده به شماره زیر را وارد کنید :
+          </p>
+        </header>
+        <div class="code-fields">
+          <div class="phone-summary">
+            <bdi id="verification-mobile" dir="ltr"></bdi>
+            <button
+              class="icon-button edit-button"
+              type="button"
+              aria-label="ویرایش شماره موبایل"
+            >
+              <img src="assets/icons/edit.svg" alt="" width="36" height="36" />
+            </button>
+          </div>
+          <fieldset aria-describedby="code-error">
+            <legend class="sr-only">کد تأیید شش رقمی</legend>
+            <div class="code-inputs">
+              <label class="sr-only" for="code-0">رقم ۱ کد تأیید</label
+              ><input
+                id="code-0"
+                class="code-input"
+                name="code-0"
+                type="text"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                maxlength="6"
+                pattern="[0-9۰-۹٠-٩]*"
+                dir="ltr"
+                data-index="0"
+                required
+                aria-describedby="code-error"
+              />
+              <label class="sr-only" for="code-1">رقم ۲ کد تأیید</label
+              ><input
+                id="code-1"
+                class="code-input"
+                name="code-1"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="6"
+                pattern="[0-9۰-۹٠-٩]*"
+                dir="ltr"
+                data-index="1"
+                required
+                aria-describedby="code-error"
+              />
+              <label class="sr-only" for="code-2">رقم ۳ کد تأیید</label
+              ><input
+                id="code-2"
+                class="code-input"
+                name="code-2"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="6"
+                pattern="[0-9۰-۹٠-٩]*"
+                dir="ltr"
+                data-index="2"
+                required
+                aria-describedby="code-error"
+              />
+              <label class="sr-only" for="code-3">رقم ۴ کد تأیید</label
+              ><input
+                id="code-3"
+                class="code-input"
+                name="code-3"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="6"
+                pattern="[0-9۰-۹٠-٩]*"
+                dir="ltr"
+                data-index="3"
+                required
+                aria-describedby="code-error"
+              />
+              <label class="sr-only" for="code-4">رقم ۵ کد تأیید</label
+              ><input
+                id="code-4"
+                class="code-input"
+                name="code-4"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="6"
+                pattern="[0-9۰-۹٠-٩]*"
+                dir="ltr"
+                data-index="4"
+                required
+                aria-describedby="code-error"
+              />
+              <label class="sr-only" for="code-5">رقم ۶ کد تأیید</label
+              ><input
+                id="code-5"
+                class="code-input"
+                name="code-5"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="6"
+                pattern="[0-9۰-۹٠-٩]*"
+                dir="ltr"
+                data-index="5"
+                required
+                aria-describedby="code-error"
+              />
+            </div>
+            <p
+              class="field-error"
+              id="code-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </fieldset>
+          <div class="resend-row">
+            <button type="button" class="text-button resend-button">
+              درخواست مجدد کد تأیید
+            </button>
+            <p class="resend-timer" hidden>
+              <bdi id="countdown" dir="ltr"></bdi> مانده تا درخواست مجدد
+            </p>
+          </div>
+        </div>
+        <button class="button button-primary" type="submit">
+          ورود به سامانه
+        </button>
+      </form>
+    </template>
+
+    <template id="registration-stepper-template">
+      <nav
+        class="registration-stepper"
+        data-active-index="0"
+        aria-label="مراحل ثبت نام"
+      >
+        <div class="stepper-progress">
+          <p class="stepper-progress__label">
+            مرحله <span data-stepper-current>۱</span> از ۴
+          </p>
+          <span class="stepper-progress__track" aria-hidden="true"
+            ><span class="stepper-progress__fill"></span
+          ></span>
+          <span
+            class="stepper-progress__percent"
+            data-stepper-percent
+            aria-hidden="true"
+            >۲۵٪</span
+          >
+        </div>
+        <ol class="stepper">
+          <li class="progress-step" data-step-index="0">
+            <span class="progress-step__number">۱</span
+            ><span class="progress-step__text"
+              ><span class="progress-step__label">اطلاعات هویتی</span
+              ><span class="progress-step__description"
+                >مشخصات هویتی خود را وارد کنید.</span
+              ></span
+            >
+          </li>
+          <li class="progress-step" data-step-index="1">
+            <span class="progress-step__number">۲</span
+            ><span class="progress-step__text"
+              ><span class="progress-step__label">اطلاعات تماس</span
+              ><span class="progress-step__description"
+                >اطلاعات ارتباطی خود را تکمیل کنید.</span
+              ></span
+            >
+          </li>
+          <li class="progress-step" data-step-index="2">
+            <span class="progress-step__number">۳</span
+            ><span class="progress-step__text"
+              ><span class="progress-step__label">سوابق تحصیلی</span
+              ><span class="progress-step__description"
+                >اطلاعات تحصیلی خود را تکمیل کنید.</span
+              ></span
+            >
+          </li>
+          <li class="progress-step" data-step-index="3">
+            <span class="progress-step__number">۴</span
+            ><span class="progress-step__text"
+              ><span class="progress-step__label">سوابق شغلی</span
+              ><span class="progress-step__description"
+                >تجربه‌های کاری خود را وارد کنید</span
+              ></span
+            >
+          </li>
+        </ol>
+      </nav>
+    </template>
+
+    <template id="registration-identity-template">
+      <form
+        class="registration-details-form identity-form"
+        novalidate
+        aria-labelledby="registration-form-title"
+      >
+        <header class="registration-details-header">
+          <h1 id="registration-form-title" tabindex="-1">اطلاعات هویتی</h1>
+          <p>کد ملی و تاریخ تولد خود را وارد کنید :</p>
+        </header>
+
+        <div class="identity-fields registration-fields-grid">
+          <div class="registration-field">
+            <label for="national-id">کدملی</label>
+            <input
+              id="national-id"
+              class="registration-input identity-key-input"
+              name="nationalId"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="10"
+              dir="ltr"
+              aria-invalid="false"
+              aria-describedby="national-id-error"
+            />
+            <p
+              class="registration-field-error"
+              id="national-id-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div class="registration-field birth-date-field">
+            <label for="birth-date">تاریخ تولد</label>
+            <div class="birth-date-control">
+              <input
+                id="birth-date"
+                class="registration-input identity-key-input"
+                name="birthDate"
+                type="text"
+                autocomplete="bday"
+                dir="ltr"
+                readonly
+                aria-invalid="false"
+                aria-describedby="birth-date-error"
+                aria-label="تاریخ تولد؛ برای انتخاب تقویم شمسی را باز کنید"
+              />
+              <button
+                class="birth-date-calendar-button"
+                type="button"
+                aria-label="باز کردن تقویم شمسی تاریخ تولد"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect
+                    x="3.5"
+                    y="5.5"
+                    width="17"
+                    height="15"
+                    rx="2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M7 3.5v4M17 3.5v4M3.5 9.5h17"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <p
+              class="registration-field-error"
+              id="birth-date-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div class="registration-field">
+            <label for="first-name">نام</label>
+            <input
+              id="first-name"
+              class="registration-input"
+              name="firstName"
+              type="text"
+              autocomplete="given-name"
+              maxlength="120"
+              aria-invalid="false"
+              aria-describedby="first-name-error"
+            />
+            <p
+              class="registration-field-error"
+              id="first-name-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div class="registration-field">
+            <label for="last-name">نام خانوادگی</label>
+            <input
+              id="last-name"
+              class="registration-input"
+              name="lastName"
+              type="text"
+              autocomplete="family-name"
+              maxlength="120"
+              aria-invalid="false"
+              aria-describedby="last-name-error"
+            />
+            <p
+              class="registration-field-error"
+              id="last-name-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+        </div>
+
+        <div class="referral-area">
+          <fieldset class="referral-choice">
+            <legend>کد معرف دارید؟</legend>
+            <div class="referral-options">
+              <label class="referral-option" data-referral-option="yes"
+                ><span>بله</span
+                ><input type="radio" name="hasReferral" value="yes"
+              /></label>
+              <label class="referral-option" data-referral-option="no"
+                ><span>خیر</span
+                ><input type="radio" name="hasReferral" value="no"
+              /></label>
+            </div>
+          </fieldset>
+          <div
+            class="referral-link-details"
+            id="referral-link-details"
+            data-referral-link-details
+            hidden
+          >
+            <p>نام مدیر فروش : <strong data-referral-link-name></strong></p>
+            <p>کد مدیر فروش : <bdi data-referral-link-code dir="ltr"></bdi></p>
+          </div>
+          <div class="manual-referral-field" data-manual-referral-field hidden>
+            <label for="referral-code">کد مدیر فروش خود را وارد کنید :</label>
+            <input
+              id="referral-code"
+              name="referralCode"
+              class="registration-input referral-code-input"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="20"
+              dir="ltr"
+              aria-invalid="false"
+              aria-describedby="referral-code-error referral-manager-name"
+            />
+            <p
+              class="registration-field-error"
+              id="referral-code-error"
+              aria-live="polite"
+              hidden
+            ></p>
+            <p id="referral-manager-name" class="referral-manager-name" hidden>
+              نام مدیر فروش : <strong data-referral-manager-name></strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="identity-confirmation" data-identity-confirmation hidden>
+          <p class="confirmation-note">
+            در صورت صحت اطلاعات فوق دکمه ادامه را بزنید. در غیر این صورت به
+            مرحله قبل بازگشته و دوباره تلاش کنید
+          </p>
+          <div class="warning-box" role="note">
+            <svg class="warning-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3L22 21H2L12 3Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 9V14.5"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+              <circle cx="12" cy="18" r="1" fill="currentColor" />
+            </svg>
+            <p>
+              مسئولیت هرگونه مغایرت اطلاعات بر عهده متقاضی بوده و در صورت اثبات
+              سوء استفاده مطابق قانون با فرد خاطی برخورد خواهد شد
+            </p>
+          </div>
+        </div>
+
+        <div class="registration-form-actions">
+          <button class="registration-back-button" type="button">
+            <span class="button-arrow" aria-hidden="true">→</span
+            ><span>بازگشت</span>
+          </button>
+          <button class="registration-next-button" type="submit" disabled>
+            <span>ادامه</span
+            ><span class="button-arrow" aria-hidden="true">←</span>
+          </button>
+        </div>
+      </form>
+    </template>
+
+    <template id="registration-contact-template">
+      <form
+        class="registration-details-form contact-form"
+        novalidate
+        aria-labelledby="registration-form-title"
+      >
+        <header class="registration-details-header">
+          <h1 id="registration-form-title" tabindex="-1">اطلاعات تماس</h1>
+          <p>اطلاعات تماس خود را وارد کنید :</p>
+        </header>
+        <div class="contact-fields registration-fields-grid">
+          <div
+            class="registration-field searchable-field"
+            data-searchable-root="province"
+            data-placeholder="انتخاب استان"
+          >
+            <label id="province-label" for="province-trigger">استان</label>
+            <div class="searchable-combobox">
+              <button
+                id="province-trigger"
+                class="registration-input searchable-combobox__trigger"
+                type="button"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="province-listbox"
+                aria-labelledby="province-label province-trigger"
+                aria-invalid="false"
+                aria-describedby="province-error"
+              >
+                <span class="searchable-combobox__value is-placeholder"
+                  >انتخاب استان</span
+                ><span
+                  class="searchable-combobox__chevron"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div
+                class="searchable-combobox__popup"
+                data-combobox-popup
+                hidden
+              >
+                <input
+                  id="province-search"
+                  class="searchable-combobox__search"
+                  type="text"
+                  placeholder="جستجوی استان..."
+                  inputmode="text"
+                  autocomplete="off"
+                  aria-label="جستجوی استان"
+                  aria-controls="province-listbox"
+                  aria-autocomplete="list"
+                />
+                <div
+                  id="province-listbox"
+                  class="searchable-combobox__list"
+                  role="listbox"
+                  aria-labelledby="province-label"
+                ></div>
+                <p
+                  class="searchable-combobox__empty"
+                  data-combobox-empty
+                  hidden
+                >
+                  نتیجه‌ای پیدا نشد
+                </p>
+              </div>
+            </div>
+            <p
+              class="registration-field-error"
+              id="province-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div
+            class="registration-field searchable-field"
+            data-searchable-root="city"
+            data-placeholder="انتخاب شهر"
+            data-disabled-placeholder="ابتدا استان را انتخاب کنید"
+          >
+            <label id="city-label" for="city-trigger">شهر</label>
+            <div class="searchable-combobox">
+              <button
+                id="city-trigger"
+                class="registration-input searchable-combobox__trigger"
+                type="button"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="city-listbox"
+                aria-labelledby="city-label city-trigger"
+                aria-invalid="false"
+                aria-describedby="city-error"
+              >
+                <span class="searchable-combobox__value is-placeholder"
+                  >ابتدا استان را انتخاب کنید</span
+                ><span
+                  class="searchable-combobox__chevron"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div
+                class="searchable-combobox__popup"
+                data-combobox-popup
+                hidden
+              >
+                <input
+                  id="city-search"
+                  class="searchable-combobox__search"
+                  type="text"
+                  placeholder="جستجوی شهر..."
+                  inputmode="text"
+                  autocomplete="off"
+                  aria-label="جستجوی شهر"
+                  aria-controls="city-listbox"
+                  aria-autocomplete="list"
+                />
+                <div
+                  id="city-listbox"
+                  class="searchable-combobox__list"
+                  role="listbox"
+                  aria-labelledby="city-label"
+                ></div>
+                <p
+                  class="searchable-combobox__empty"
+                  data-combobox-empty
+                  hidden
+                >
+                  نتیجه‌ای پیدا نشد
+                </p>
+              </div>
+            </div>
+            <p
+              class="registration-field-error"
+              id="city-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div class="registration-field registration-field--full">
+            <label for="address">آدرس (اختیاری)</label>
+            <input
+              id="address"
+              class="registration-input"
+              name="address"
+              type="text"
+              autocomplete="street-address"
+              maxlength="500"
+              placeholder="آدرس خود را وارد کنید..."
+            />
+          </div>
+          <div class="registration-field registration-field--postal">
+            <label for="postal-code">کد پستی</label>
+            <input
+              id="postal-code"
+              class="registration-input"
+              name="postalCode"
+              type="text"
+              required
+              inputmode="numeric"
+              autocomplete="postal-code"
+              maxlength="10"
+              dir="ltr"
+              placeholder="کد پستی ۱۰ رقمی"
+              aria-invalid="false"
+              aria-describedby="postal-code-error"
+            />
+            <p
+              class="registration-field-error"
+              id="postal-code-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div class="registration-field contact-mobile-field">
+            <label for="contact-mobile">شماره موبایل</label>
+            <input
+              id="contact-mobile"
+              class="registration-input identity-key-input"
+              name="mobile"
+              type="tel"
+              readonly
+              dir="ltr"
+            />
+          </div>
+          <div class="registration-field">
+            <label for="landline">شماره ثابت (اختیاری)</label>
+            <input
+              id="landline"
+              class="registration-input"
+              name="landline"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              maxlength="12"
+              dir="ltr"
+              placeholder="شماره ثابت به همراه کد شهر"
+              aria-invalid="false"
+              aria-describedby="landline-error"
+            />
+            <p
+              class="registration-field-error"
+              id="landline-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+        </div>
+        <div class="registration-form-actions">
+          <button class="registration-back-button" type="button">
+            <span class="button-arrow" aria-hidden="true">→</span
+            ><span>بازگشت</span>
+          </button>
+          <button class="registration-next-button" type="submit" disabled>
+            <span>ادامه</span
+            ><span class="button-arrow" aria-hidden="true">←</span>
+          </button>
+        </div>
+      </form>
+    </template>
+
+    <template id="registration-education-template">
+      <form
+        class="registration-details-form education-form"
+        novalidate
+        aria-labelledby="registration-form-title"
+      >
+        <header class="registration-details-header">
+          <h1 id="registration-form-title" tabindex="-1">سوابق تحصیلی</h1>
+          <p>سوابق تحصیلی خود را وارد کنید :</p>
+        </header>
+        <div class="education-fields registration-fields-grid">
+          <div class="registration-field select-field">
+            <label for="education-degree">آخرین مدرک تحصیلی</label>
+            <select
+              id="education-degree"
+              class="registration-input registration-select"
+              name="degree"
+              required
+              aria-invalid="false"
+              aria-describedby="education-degree-error"
+            >
+              <option value="">انتخاب مدرک تحصیلی</option>
+              <option value="زیر دیپلم">زیر دیپلم</option>
+              <option value="دیپلم">دیپلم</option>
+              <option value="فوق دیپلم">فوق دیپلم</option>
+              <option value="کارشناسی">کارشناسی</option>
+              <option value="کارشناسی ارشد">کارشناسی ارشد</option>
+              <option value="دکتری">دکتری</option>
+            </select>
+            <p
+              class="registration-field-error"
+              id="education-degree-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div
+            class="registration-field searchable-field"
+            data-searchable-root="education-year"
+            data-placeholder="انتخاب یا ورود سال"
+            data-custom-option-label="استفاده از {value}"
+          >
+            <label id="education-year-label" for="education-year-trigger"
+              >سال اخذ مدرک (اختیاری)</label
+            >
+            <div class="searchable-combobox">
+              <button
+                id="education-year-trigger"
+                class="registration-input searchable-combobox__trigger"
+                type="button"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="education-year-listbox"
+                aria-labelledby="education-year-label education-year-trigger"
+                aria-invalid="false"
+                aria-describedby="education-year-error"
+              >
+                <span class="searchable-combobox__value is-placeholder"
+                  >انتخاب یا ورود سال</span
+                ><span
+                  class="searchable-combobox__chevron"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div
+                class="searchable-combobox__popup"
+                data-combobox-popup
+                hidden
+              >
+                <input
+                  id="education-year-search"
+                  class="searchable-combobox__search"
+                  type="text"
+                  placeholder="جستجو یا ورود سال ۴ رقمی..."
+                  inputmode="numeric"
+                  autocomplete="off"
+                  aria-label="جستجوی سال اخذ مدرک (اختیاری)"
+                  aria-controls="education-year-listbox"
+                  aria-autocomplete="list"
+                />
+                <div
+                  id="education-year-listbox"
+                  class="searchable-combobox__list"
+                  role="listbox"
+                  aria-labelledby="education-year-label"
+                ></div>
+                <p
+                  class="searchable-combobox__empty"
+                  data-combobox-empty
+                  hidden
+                >
+                  نتیجه‌ای پیدا نشد
+                </p>
+              </div>
+            </div>
+            <p
+              class="registration-field-error"
+              id="education-year-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div class="registration-field registration-field--full">
+            <label for="education-field">رشته تحصیلی (اختیاری)</label>
+            <input
+              id="education-field"
+              class="registration-input"
+              name="field"
+              type="text"
+              maxlength="160"
+              placeholder="رشته تحصیلی خود را وارد کنید..."
+            />
+          </div>
+        </div>
+        <div class="registration-form-actions">
+          <button class="registration-back-button" type="button">
+            <span class="button-arrow" aria-hidden="true">→</span
+            ><span>بازگشت</span>
+          </button>
+          <button class="registration-next-button" type="submit" disabled>
+            <span>ادامه</span
+            ><span class="button-arrow" aria-hidden="true">←</span>
+          </button>
+        </div>
+      </form>
+    </template>
+
+    <template id="registration-employment-template">
+      <form
+        class="registration-details-form employment-form"
+        novalidate
+        aria-labelledby="registration-form-title"
+      >
+        <header class="registration-details-header employment-header">
+          <h1 id="registration-form-title" tabindex="-1">سوابق شغلی</h1>
+        </header>
+        <fieldset class="employment-choice">
+          <legend>سابقه کار دارید؟</legend>
+          <div class="employment-options">
+            <label class="employment-option" data-employment-option="yes"
+              ><span>بله</span
+              ><input type="radio" name="hasEmployment" value="yes"
+            /></label>
+            <label class="employment-option" data-employment-option="no"
+              ><span>خیر</span
+              ><input type="radio" name="hasEmployment" value="no"
+            /></label>
+          </div>
+        </fieldset>
+        <div class="employment-records" data-employment-records hidden></div>
+        <button
+          class="add-employment-button"
+          type="button"
+          data-add-employment
+          hidden
+        >
+          <span aria-hidden="true">＋</span>افزودن سابقه کاری
+        </button>
+        <p
+          class="employment-limit-status sr-only"
+          data-employment-limit-status
+          aria-live="polite"
+        ></p>
+        <div class="registration-form-actions">
+          <button class="registration-back-button" type="button">
+            <span class="button-arrow" aria-hidden="true">→</span
+            ><span>بازگشت</span>
+          </button>
+          <button class="registration-next-button" type="submit">
+            <span data-employment-submit-label>ادامه</span
+            ><span
+              class="button-arrow"
+              data-employment-submit-arrow
+              aria-hidden="true"
+              >←</span
+            ><span
+              class="final-check"
+              data-employment-final-check
+              aria-hidden="true"
+              hidden
+              >✓</span
+            >
+          </button>
+        </div>
+      </form>
+    </template>
+
+    <template id="employment-record-template">
+      <hr class="employment-divider" data-record-divider hidden />
+      <fieldset class="employment-record" data-record-index>
+        <legend class="sr-only">
+          سابقه کاری <span data-record-legend-number></span>
+        </legend>
+        <div class="employment-record-heading" data-record-heading hidden>
+          <span>سابقه کاری <span data-record-heading-number></span></span
+          ><button
+            class="remove-employment-button"
+            type="button"
+            data-remove-employment
+          >
+            حذف سابقه
+          </button>
+        </div>
+        <div class="employment-record-grid">
+          <div class="registration-field">
+            <label data-company-label
+              ><span>نام شرکت / موسسه</span>
+              <span data-company-optional>(اختیاری)</span></label
+            >
+            <input
+              class="registration-input"
+              data-record-field="company"
+              type="text"
+              maxlength="160"
+            />
+          </div>
+          <div class="registration-field">
+            <label data-title-label
+              ><span data-title-first>عنوان شغلی (اختیاری)</span
+              ><span data-title-later hidden>عنوان شغلی (سمت)</span></label
+            >
+            <input
+              class="registration-input"
+              data-record-field="title"
+              type="text"
+              maxlength="160"
+            />
+          </div>
+          <div class="employment-date-group">
+            <p>تاریخ شروع همکاری (اختیاری)</p>
+            <div class="employment-date-pair">
+              <div
+                class="registration-field select-field employment-date-field"
+              >
+                <label class="sr-only" data-start-month-label
+                  >ماه شروع همکاری</label
+                ><select
+                  class="registration-input registration-select employment-select"
+                  data-start-month
+                  data-employment-select
+                  aria-label="ماه"
+                  aria-invalid="false"
+                >
+                  <option value="">ماه</option>
+                </select>
+              </div>
+              <div
+                class="registration-field select-field employment-date-field"
+              >
+                <label class="sr-only" data-start-year-label
+                  >سال شروع همکاری</label
+                ><select
+                  class="registration-input registration-select employment-select"
+                  data-start-year
+                  data-employment-select
+                  aria-label="سال"
+                  aria-invalid="false"
+                >
+                  <option value="">سال</option>
+                </select>
+              </div>
+            </div>
+            <p
+              class="registration-field-error employment-date-error"
+              data-start-date-error
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+          <div
+            class="employment-date-group employment-end-group"
+            data-end-group
+          >
+            <p>تاریخ پایان همکاری (اختیاری)</p>
+            <div class="employment-date-pair">
+              <div
+                class="registration-field select-field employment-date-field"
+              >
+                <label class="sr-only" data-end-month-label
+                  >ماه پایان همکاری</label
+                ><select
+                  class="registration-input registration-select employment-select"
+                  data-end-month
+                  data-employment-select
+                  aria-label="ماه پایان همکاری"
+                  aria-invalid="false"
+                >
+                  <option value="">ماه</option>
+                </select>
+              </div>
+              <div
+                class="registration-field select-field employment-date-field"
+              >
+                <label class="sr-only" data-end-year-label
+                  >سال پایان همکاری</label
+                ><select
+                  class="registration-input registration-select employment-select"
+                  data-end-year
+                  data-employment-select
+                  aria-label="سال پایان همکاری"
+                  aria-invalid="false"
+                >
+                  <option value="">سال</option>
+                </select>
+              </div>
+            </div>
+            <p
+              class="registration-field-error employment-date-error"
+              data-end-date-error
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+        </div>
+        <label class="currently-employed"
+          ><input type="checkbox" data-current-employed /><span
+            >هنوز مشغولم</span
+          ></label
+        >
+      </fieldset>
+    </template>
+
+    <template id="registration-success-template">
+      <section class="success-content" aria-labelledby="success-title">
+        <img
+          class="success-check"
+          src="assets/icons/success-check.svg"
+          width="84"
+          height="84"
+          alt=""
+        />
+        <h1 id="success-title" tabindex="-1">درخواست شما با موفقیت ثبت شد!</h1>
+        <p>برای ادامه فرایند جذب، وارد حساب کاربری خود شوید.</p>
+        <a
+          class="button button-primary"
+          href="pages/moarefe/moarefe.html"
+          data-enter-dashboard
+          >ادامه فرایند جذب</a
+        >
+      </section>
+    </template>
+
+    <template id="netbime-header-template">
+      <header class="app-header" aria-label="سربرگ سامانه نت بیمه ۲۴">
+        <div class="app-header__brand">
+          <button
+            class="app-header__menu-trigger"
+            type="button"
+            aria-label="باز کردن منوی اصلی"
+            aria-expanded="false"
+          >
+            <span aria-hidden="true"></span><span aria-hidden="true"></span
+            ><span aria-hidden="true"></span>
+          </button>
+          <a
+            class="app-header__logo"
+            href="#"
+            aria-label="رفتن به داشبورد نت بیمه ۲۴"
+          >
+            <img
+              src="shared/assets/header/netbime-dashboard-logo.webp"
+              width="190"
+              height="45"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="app-header__actions" aria-label="حساب کاربری و اعلان‌ها">
+          <div class="app-header__profile-wrap">
+            <button
+              class="header-icon-button header-user-button"
+              type="button"
+              aria-label="حساب کاربری"
+              data-label-prefix="حساب کاربری"
+              aria-haspopup="menu"
+              aria-expanded="false"
+            >
+              <img
+                src="assets/icons/header-user.svg"
+                alt=""
+                width="30"
+                height="30"
+              />
+            </button>
+            <div class="profile-menu" role="menu" hidden>
+              <p
+                class="profile-menu__name"
+                data-user-name
+                data-default-name="کاربر نت بیمه ۲۴"
+              >
+                کاربر نت بیمه ۲۴
+              </p>
+              <button
+                type="button"
+                role="menuitem"
+                data-profile-action="account"
+              >
+                پروفایل
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                data-profile-action="notifications"
+              >
+                اعلان‌ها
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                data-profile-action="logout"
+              >
+                خروج
+              </button>
+            </div>
+          </div>
+          <span class="header-separator" aria-hidden="true"></span>
+          <div class="app-header__notifications-wrap">
+            <button
+              class="header-icon-button header-bell-button"
+              type="button"
+              aria-label="اعلان‌ها"
+              data-label-prefix="اعلان‌ها"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+            >
+              <span class="header-bell-icon-wrap">
+                <img
+                  src="assets/icons/header-bell.svg"
+                  alt=""
+                  width="40"
+                  height="40"
+                />
+                <span
+                  class="header-notification-badge"
+                  hidden
+                  aria-hidden="true"
+                ></span>
+              </span>
+            </button>
+            <div
+              class="notification-popover"
+              role="dialog"
+              aria-label="اعلان‌های اخیر"
+              hidden
+            >
+              <div class="notification-popover__body">
+                <div class="notification-popover__header">
+                  <h2>اعلان‌ها</h2>
+                  <button
+                    type="button"
+                    class="notification-popover__mark-all"
+                    data-notifications-mark-all
+                    hidden
+                  >
+                    خواندن همه
+                  </button>
+                </div>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="initial"
+                >
+                  برای مشاهده اعلان‌ها دکمه اعلان را انتخاب کنید.
+                </p>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="loading"
+                  role="status"
+                  hidden
+                >
+                  در حال دریافت اعلان‌ها…
+                </p>
+                <div
+                  class="notification-popover__state notification-popover__state--error"
+                  data-notification-state="error"
+                  role="alert"
+                  hidden
+                >
+                  <p data-notification-error-message>
+                    دریافت اعلان‌ها انجام نشد.
+                  </p>
+                  <button type="button" data-notifications-retry>
+                    تلاش دوباره
+                  </button>
+                </div>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="coming-soon"
+                  hidden
+                >
+                  این بخش بزودی در دسترس قرار می‌گیرد.
+                </p>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="empty"
+                  hidden
+                >
+                  اعلان جدیدی ندارید.
+                </p>
+                <div data-notification-state="list" hidden>
+                  <ul
+                    class="notification-popover__list"
+                    data-notification-list
+                  ></ul>
+                </div>
+                <a
+                  class="notification-popover__all"
+                  data-notifications-all-link
+                  href="#"
+                  hidden
+                  >مشاهده همه اعلان‌ها</a
+                >
+                <span
+                  class="notification-popover__all"
+                  data-notifications-all-disabled
+                  aria-disabled="true"
+                  >بزودی</span
+                >
+                <template data-notification-item-template>
+                  <li class="notification-preview">
+                    <button
+                      type="button"
+                      class="notification-preview__button"
+                      data-notification-id=""
+                    >
+                      <span
+                        class="notification-preview__dot"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="notification-preview__content"
+                        ><strong data-notification-title></strong
+                        ><span data-notification-date></span
+                      ></span>
+                      <span class="sr-only" data-notification-read-state></span>
+                    </button>
+                  </li>
+                </template>
+              </div>
+              <span data-header-copy="notification-count-overflow" hidden
+                >۹۹+</span
+              >
+              <span data-header-copy="unread-notification-label" hidden
+                >{count} اعلان جدید</span
+              >
+              <span data-header-copy="notification-read" hidden
+                >خوانده شده</span
+              >
+              <span data-header-copy="notification-unread" hidden
+                >خوانده نشده</span
+              >
+            </div>
+          </div>
+        </div>
+      </header>
+    </template>
+
+    <template id="persian-date-picker-template">
+      <div
+        class="persian-calendar"
+        role="dialog"
+        aria-modal="false"
+        aria-label="انتخاب تاریخ تولد در تقویم شمسی"
+        hidden
+      >
+        <div class="persian-calendar__header">
+          <button
+            type="button"
+            class="calendar-nav"
+            data-calendar-next
+            aria-label="ماه بعد"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <select class="calendar-select" data-calendar-month aria-label="ماه">
+            <option value="1">فروردین</option>
+            <option value="2">اردیبهشت</option>
+            <option value="3">خرداد</option>
+            <option value="4">تیر</option>
+            <option value="5">مرداد</option>
+            <option value="6">شهریور</option>
+            <option value="7">مهر</option>
+            <option value="8">آبان</option>
+            <option value="9">آذر</option>
+            <option value="10">دی</option>
+            <option value="11">بهمن</option>
+            <option value="12">اسفند</option>
+          </select>
+          <select
+            class="calendar-select calendar-year-select"
+            data-calendar-year
+            aria-label="سال"
+          ></select>
+          <button
+            type="button"
+            class="calendar-nav"
+            data-calendar-previous
+            aria-label="ماه قبل"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 6L15 12L9 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="persian-calendar__grid"
+          data-calendar-grid
+          role="grid"
+          aria-label="تقویم شمسی"
+        >
+          <span class="calendar-weekday" aria-hidden="true">ش</span
+          ><span class="calendar-weekday" aria-hidden="true">ی</span
+          ><span class="calendar-weekday" aria-hidden="true">د</span
+          ><span class="calendar-weekday" aria-hidden="true">س</span
+          ><span class="calendar-weekday" aria-hidden="true">چ</span
+          ><span class="calendar-weekday" aria-hidden="true">پ</span
+          ><span class="calendar-weekday" aria-hidden="true">ج</span>
+        </div>
+      </div>
+    </template>
+    <template id="persian-calendar-empty-template"
+      ><span
+        class="calendar-empty"
+        aria-hidden="true"
+        data-calendar-dynamic
+      ></span
+    ></template>
+    <template id="persian-calendar-day-template"
+      ><button
+        type="button"
+        class="calendar-day"
+        role="gridcell"
+        data-calendar-dynamic
+      ></button
+    ></template>
+
+    <div id="registration-copy-bank" hidden>
+      <span data-validation-copy="mobile-required"
+        >شماره موبایل خود را وارد کنید</span
+      >
+      <span data-validation-copy="mobile-invalid">شماره موبایل نادرست است</span>
+      <span data-validation-copy="code-incomplete"
+        >کد تأیید شش رقمی را کامل وارد کنید</span
+      >
+      <span data-validation-copy="national-id-required"
+        >کد ملی خود را وارد کنید</span
+      >
+      <span data-validation-copy="national-id-length"
+        >کد ملی باید ۱۰ رقم باشد</span
+      >
+      <span data-validation-copy="national-id-invalid"
+        >کد ملی وارد شده معتبر نیست</span
+      >
+      <span data-validation-copy="birth-date-required"
+        >تاریخ تولد خود را از تقویم انتخاب کنید</span
+      >
+      <span data-validation-copy="birth-date-format"
+        >تاریخ تولد را از تقویم شمسی انتخاب کنید</span
+      >
+      <span data-validation-copy="birth-date-invalid"
+        >تاریخ تولد انتخاب شده معتبر نیست</span
+      >
+      <span data-validation-copy="required-text">{label} را وارد کنید</span>
+      <span data-validation-copy="referral-required"
+        >کد مدیر فروش را وارد کنید</span
+      >
+      <span data-validation-copy="referral-invalid"
+        >کد مدیر فروش نامعتبر است</span
+      >
+      <span data-validation-copy="postal-code-required"
+        >کد پستی الزامی است.</span
+      >
+      <span data-validation-copy="postal-code-invalid"
+        >کد پستی باید ۱۰ رقم باشد</span
+      >
+      <span data-validation-copy="landline-invalid"
+        >شماره ثابت وارد شده معتبر نیست</span
+      >
+      <span data-validation-copy="education-year-invalid"
+        >سال اخذ مدرک باید دقیقاً ۴ رقم باشد</span
+      >
+      <span data-validation-copy="date-pair-incomplete"
+        >{label} را با ماه و سال کامل کنید</span
+      >
+
+      <span data-registration-copy="busy">لطفاً صبر کنید</span>
+      <span data-registration-copy="mobile-submit">تایید</span>
+      <span data-registration-copy="code-submit">ورود به سامانه</span>
+      <span data-registration-copy="resend-wait-label"
+        >درخواست مجدد کد تأیید پس از پایان زمان انتظار</span
+      >
+      <span data-registration-copy="resend-label">درخواست مجدد کد تأیید</span>
+      <span data-registration-copy="request-code-failed"
+        >درخواست کد انجام نشد. لطفاً دوباره تلاش کنید.</span
+      >
+      <span data-registration-copy="request-code-error-title"
+        >خطا در دریافت کد</span
+      >
+      <span data-registration-copy="verification-invalid"
+        >کد تایید وارد شده نادرست است</span
+      >
+      <span data-registration-copy="verification-error-title"
+        >خطا در بررسی کد</span
+      >
+      <span data-registration-copy="verification-error-message"
+        >بررسی کد انجام نشد. لطفاً دوباره تلاش کنید.</span
+      >
+      <span data-registration-copy="otp-limit-title"
+        >محدودیت درخواست کد</span
+      >
+      <span data-registration-copy="otp-limit-message"
+        >کد برای شما ارسال شده است. تا {minutes} دقیقه دیگر امکان درخواست کد جدید وجود ندارد.</span
+      >
+      <span data-registration-copy="resend-success"
+        >درخواست مجدد کد ثبت شد</span
+      >
+      <span data-registration-copy="resend-failed"
+        >درخواست مجدد انجام نشد. لطفاً دوباره تلاش کنید.</span
+      >
+      <span data-registration-copy="referral-pending"
+        >در انتظار اتصال به سرویس معرف</span
+      >
+      <span data-registration-copy="referral-error-title"
+        >خطا در بررسی کد معرف</span
+      >
+      <span data-registration-copy="referral-error-message"
+        >بررسی کد مدیر فروش انجام نشد. لطفاً دوباره تلاش کنید.</span
+      >
+      <span data-registration-copy="province-required"
+        >استان را انتخاب کنید</span
+      >
+      <span data-registration-copy="city-required">شهر را انتخاب کنید</span>
+      <span data-registration-copy="degree-required"
+        >آخرین مدرک تحصیلی را انتخاب کنید</span
+      >
+      <span data-registration-copy="employment-limit"
+        >حداکثر {count} سابقه کاری قابل ثبت است.</span
+      >
+      <span data-registration-copy="employment-submit-final">تایید نهایی</span>
+      <span data-registration-copy="employment-submit-next">ادامه</span>
+      <span data-registration-copy="start-date-label">تاریخ شروع همکاری</span>
+      <span data-registration-copy="end-date-label">تاریخ پایان همکاری</span>
+      <span data-registration-copy="registration-incomplete-title"
+        >اطلاعات ثبت نام کامل نیست</span
+      >
+      <span data-registration-copy="registration-success-announcement"
+        >درخواست شما با موفقیت ثبت شد</span
+      >
+      <span data-registration-copy="registration-submit-failed"
+        >ثبت درخواست انجام نشد. لطفاً دوباره تلاش کنید.</span
+      >
+      <span data-registration-copy="registration-submit-error-title"
+        >خطا در ثبت درخواست</span
+      >
+      <span data-registration-copy="registration-session-expired-title"
+        >نشست ثبت نام منقضی شده است</span
+      >
+      <span data-registration-copy="registration-session-expired"
+        >برای ادامه، شماره موبایل خود را دوباره تأیید کنید. اطلاعات واردشده حفظ شده است.</span
+      >
+      <span data-registration-copy="first-name-label">نام</span>
+      <span data-registration-copy="last-name-label">نام خانوادگی</span>
+    </div>
+  </body>
+</html>

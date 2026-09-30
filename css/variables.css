@@ -1,0 +1,50 @@
+:root {
+  --color-navy: #1c3662;
+  --color-white: #ffffff;
+  --color-primary: #4e90f4;
+  --color-secondary-blue: #325380;
+  --color-teal: #009e9e;
+  --color-text-muted: #64748b;
+  --color-page-background: #f4f6f9;
+  --color-teal-light: #00afa2;
+  --color-purple: #933fff;
+  --color-blue: #1780fd;
+  --color-danger: #ef4444;
+  --color-warning: #e2a100;
+  --color-warning-border: #ffde96;
+  --color-warning-surface: #ffe9ba;
+  --color-separator: #e8e8e8;
+  --color-step-surface: #efefef;
+  --color-step-idle: #b3c0d3;
+  --color-step-track: #e7ecf1;
+  --color-indigo: #3430f8;
+  --color-ink: #0b1e3c;
+  --color-button-start: #8bc6c0;
+  --color-button-end: #426574;
+  --color-brand-mint: #b2f9e7;
+  --color-mobile-error: #ec4636;
+  --color-code-error: #f63c4f;
+  --color-muted: rgb(11 30 60 / 50%);
+  --color-placeholder: rgb(11 30 60 / 30%);
+  --color-border: rgb(11 30 60 / 30%);
+  --color-code-border: rgb(11 30 60 / 20%);
+  --color-disabled: rgb(11 30 60 / 15%);
+  --color-disabled-text: rgb(11 30 60 / 25%);
+  --color-surface: rgb(11 30 60 / 10%);
+  --color-backdrop: rgb(11 30 60 / 45%);
+  --gradient-button: linear-gradient(
+    90deg,
+    var(--color-button-start),
+    var(--color-button-end)
+  );
+  --radius-control: 10px;
+  --radius-card: 18px;
+  --radius-appointment: 13px;
+  --color-recruitment-text: #43536d;
+  --color-scheduler-muted: #7d8797;
+  --color-scheduler-note: #8b97aa;
+  --color-mobile-button-end: #4C737E;
+  --gradient-mobile-button: linear-gradient(95.770936deg, var(--color-button-start) -8.368827%, var(--color-mobile-button-end) 76.0338%);
+  --control-height: 57px;
+  --font-body: "IRANSansX", Tahoma, sans-serif;
+}

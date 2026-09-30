@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F4F6F9" />
+    <title>شرکت در مصاحبه | نت بیمه ۲۴</title>
+    <link rel="icon" href="data:," />
+    <link
+      rel="preload"
+      href="../../assets/fonts/IRANSansX-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/variables.css" />
+    <link rel="stylesheet" href="../../css/typography.css" />
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" href="../../shared/dashboard/dashboard.css" />
+    <link rel="stylesheet" href="../../shared/recruitment/recruitment.css" />
+    <link
+      rel="stylesheet"
+      href="../../shared/recruitment/appointment-scheduler.css"
+    />
+    <link rel="stylesheet" href="interview.css" />
+    <script
+      type="module"
+      src="../../shared/dashboard/dashboard-layout.js"
+    ></script>
+    <script type="module" src="interview.js"></script>
+  </head>
+  <body
+    class="dashboard-page has-dashboard-layout"
+    data-recruitment-stage="interview"
+  >
+    <netbime-header home-href="../moarefe/moarefe.html"></netbime-header>
+
+    <div class="dashboard-layout">
+      <netbime-sidebar active-item="interview"></netbime-sidebar>
+
+      <main class="dashboard-content" id="main-content">
+        <p class="dashboard-welcome">
+          <strong
+            ><span data-user-welcome></span
+            ><span data-user-welcome-suffix></span
+          ></strong>
+          خوش آمدید !
+        </p>
+        <section
+          class="interview"
+          aria-label="مرحله مصاحبه فرایند جذب عامل فروش"
+        >
+          <div id="interview-root"></div>
+          <p
+            id="interview-status"
+            class="sr-only"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </section>
+      </main>
+    </div>
+    <button
+      type="button"
+      class="dashboard-sidebar-overlay"
+      aria-label="بستن منوی اصلی"
+      hidden
+      tabindex="-1"
+    ></button>
+    <p
+      id="authenticated-shell-status"
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+    ></p>
+
+    <template id="interview-process-template">
+      <section
+        class="recruitment-process-card"
+        aria-labelledby="recruitment-process-title"
+      >
+        <h1
+          id="recruitment-process-title"
+          class="recruitment-process-card__title"
+          tabindex="-1"
+        >
+          فرایند جذب عامل فروش
+        </h1>
+        <p class="recruitment-process-card__intro">
+          برای شروع فعالیت خود به عنوان عامل فروش لازم است تا مراحل زیر را با
+          موفقیت طی کنید. پس از اتمام فرایند جذب تمامی قسمتهای پنل برای شما فعال
+          خواهد شد.
+        </p>
+        <div class="recruitment-process-card__withdraw-row">
+          <p>
+            در صورتی که به هر دلیلی تمایل به ادامه فرایند جذب ندارید، می توانید
+            از ادامه انصراف بدهید.
+          </p>
+          <button
+            type="button"
+            class="recruitment-withdraw-button"
+            data-process-withdraw
+          >
+            <span aria-hidden="true">×</span><span>انصراف از ادامه فرایند</span>
+          </button>
+        </div>
+        <div data-process-progress></div>
+        <div class="recruitment-process-card__extra" data-process-extra hidden>
+          <section
+            class="recruitment-rejection-message"
+            aria-labelledby="interview-rejection-title"
+          >
+            <h2 id="interview-rejection-title">
+              از اینکه در این مقطع نمی توانیم فرایند جذب را با شما پیش ببریم
+              متأسفیم!
+            </h2>
+            <p>
+              از ابراز تمایل شما برای همکاری با بیمه نت ۲۴ صمیمانه سپاسگزاریم و
+              قدردان زمانی هستیم که برای این فرایند صرف کردید. امیدواریم که در
+              زمانی دیگر امکان این همکاری فراهم گردد.
+            </p>
+          </section>
+        </div>
+        <div data-step-copy-bank hidden>
+          <span
+            data-step-copy="registration"
+            data-step-icon="../../shared/assets/common/process-registration.png"
+            ><span data-step-title>ثبت‌نام</span
+            ><span data-step-description>رزومه شما تایید شد !</span></span
+          ><span
+            data-step-copy="referral"
+            data-step-icon="../../shared/assets/common/process-referral.png"
+            ><span data-step-title>معرفی</span
+            ><span data-step-description>تخصیص معرف تایید شد !</span></span
+          ><span
+            data-step-copy="moarefe"
+            data-step-icon="../../shared/assets/common/process-introduction.png"
+            ><span data-step-title>جلسه معارفه</span
+            ><span data-step-description
+              >شرکت در جلسه معارفه وآزمون شخصیت شناسی را با موفقیت پشت سر
+              گذاشتید !</span
+            ></span
+          ><span
+            data-step-copy="interview"
+            data-step-icon="../../shared/assets/common/process-interview.png"
+            ><span data-step-title>مصاحبه</span
+            ><span data-step-description></span></span
+          ><span
+            data-step-copy="documents"
+            data-step-icon="../../shared/assets/common/process-documents.png"
+            ><span data-step-title>مدارک</span
+            ><span data-step-description></span></span
+          ><span
+            data-step-copy="contract"
+            data-step-icon="../../shared/assets/common/process-contract.png"
+            ><span data-step-title>قرارداد</span
+            ><span data-step-description></span
+          ></span>
+        </div>
+      </section>
+    </template>
+    <template id="recruitment-loading-template"
+      ><div class="lead-state lead-state--loading" role="status">
+        <p>در حال دریافت اطلاعات...</p>
+      </div></template
+    >
+    <template id="recruitment-page-error-template"
+      ><div role="alert">
+        <p data-page-error-message>دریافت اطلاعات انجام نشد.</p>
+        <button type="button" data-page-retry>تلاش مجدد</button>
+      </div></template
+    >
+
+    <template id="interview-scheduler-template">
+      <section
+        class="appointment-scheduler"
+        aria-labelledby="interview-appointment-scheduler-title"
+      >
+        <div class="appointment-scheduler__heading">
+          <button
+            type="button"
+            class="scheduler-back-button"
+            data-scheduler-back
+            aria-label="بازگشت به فرایند جذب عامل فروش"
+          >
+            →
+          </button>
+          <span class="scheduler-parent-title">فرایند جذب عامل فروش</span>
+          <span
+            class="scheduler-back-button scheduler-heading-divider"
+            aria-hidden="true"
+            >‹</span
+          >
+          <h1 id="interview-appointment-scheduler-title" tabindex="-1">
+            شرکت در مصاحبه
+          </h1>
+        </div>
+        <p class="appointment-scheduler__intro">
+          برای شرکت در مصاحبه، یکی از زمان‌های موجود را انتخاب و درخواست خود را
+          ثبت کنید.
+        </p>
+        <p class="appointment-scheduler__instruction">
+          برای شرکت در جلسه مصاحبه، زمان مورد نظر خود را از میان زمان های مشخص
+          شده زیر انتخاب نمایید :
+        </p>
+        <p
+          class="scheduler-feedback"
+          data-scheduler-feedback
+          role="status"
+          hidden
+        >
+          <span data-feedback-loading>در حال دریافت زمان‌های موجود...</span
+          ><span data-feedback-empty hidden
+            >در حال حاضر زمان خالی برای انتخاب وجود ندارد. لطفاً بعداً دوباره
+            بررسی کنید.</span
+          ><span data-feedback-message hidden></span>
+        </p>
+        <button
+          class="scheduler-submit"
+          type="button"
+          data-scheduler-retry
+          hidden
+        >
+          تلاش مجدد
+        </button>
+        <fieldset class="appointment-fieldset" data-scheduler-fieldset hidden>
+          <legend>انتخاب زمان شرکت در مصاحبه</legend>
+          <div class="appointment-days" data-appointment-days>
+            <div class="appointment-time-option" data-suggestion-index="0">
+              <input class="appointment-radio" type="radio" disabled /><label
+                class="appointment-card is-unavailable"
+                ><span class="appointment-card__number">پیشنهاد اول</span
+                ><strong class="appointment-card__date" data-appointment-date
+                  >زمان پیشنهادی موجود نیست</strong
+                ><span class="appointment-card__time" data-time-range
+                  >زمان دیگری را از انتخاب تاریخ جلسه بررسی کنید</span
+                ><small class="appointment-card__status" data-time-status
+                  >غیرفعال</small
+                ></label
+              >
+            </div>
+            <div class="appointment-time-option" data-suggestion-index="1">
+              <input class="appointment-radio" type="radio" disabled /><label
+                class="appointment-card is-unavailable"
+                ><span class="appointment-card__number">پیشنهاد دوم</span
+                ><strong class="appointment-card__date" data-appointment-date
+                  >زمان پیشنهادی موجود نیست</strong
+                ><span class="appointment-card__time" data-time-range
+                  >زمان دیگری را از انتخاب تاریخ جلسه بررسی کنید</span
+                ><small class="appointment-card__status" data-time-status
+                  >غیرفعال</small
+                ></label
+              >
+            </div>
+            <div class="appointment-time-option" data-suggestion-index="2">
+              <input class="appointment-radio" type="radio" disabled /><label
+                class="appointment-card is-unavailable"
+                ><span class="appointment-card__number">پیشنهاد سوم</span
+                ><strong class="appointment-card__date" data-appointment-date
+                  >زمان پیشنهادی موجود نیست</strong
+                ><span class="appointment-card__time" data-time-range
+                  >زمان دیگری را از انتخاب تاریخ جلسه بررسی کنید</span
+                ><small class="appointment-card__status" data-time-status
+                  >غیرفعال</small
+                ></label
+              >
+            </div>
+          </div>
+          <div class="appointment-future-date">
+            <button
+              type="button"
+              class="custom-appointment-button"
+              aria-pressed="false"
+            >
+              <span class="custom-appointment-button__icon"
+                ><img src="../../shared/assets/common/calendar.png" alt=""
+              /></span>
+              <span class="custom-appointment-button__copy">
+                <strong class="custom-appointment-button__date" data-custom-date
+                  >انتخاب تاریخ مصاحبه</strong
+                >
+                <span class="custom-appointment-button__hint" data-custom-hint
+                  >انتخاب زمان دیگری از تقویم</span
+                >
+              </span>
+            </button>
+          </div>
+        </fieldset>
+        <section class="scheduler-notes" data-scheduler-notes hidden>
+          <h2>توضیحات :</h2>
+          <ul>
+            <li>
+              جلسه به صورت حضوری برگزار میشود. مکان برگزاری جلسه از طریق پیامک
+              به اطلاع شما خواهد رسید.
+            </li>
+            <li>
+              عدم شرکت در جلسه مصاحبه بدون اطلاع قبلی به منزله انصراف از ادامه
+              فرایند جذب می باشد.
+            </li>
+            <li>به همراه داشتن مدارک هویتی برای شرکت جلسه الزامی است.</li>
+          </ul>
+        </section>
+        <div class="scheduler-actions" data-scheduler-actions hidden>
+          <label class="scheduler-terms"
+            ><input type="checkbox" data-scheduler-terms /><span
+              >شرایط را مطالعه کرده و با آنها موافق هستم.</span
+            ></label
+          ><button type="button" class="scheduler-submit" data-scheduler-submit>
+            <span data-submit-idle>ثبت درخواست زمان مصاحبه</span
+            ><span data-submit-busy hidden>در حال ثبت...</span>
+          </button>
+        </div>
+      </section>
+    </template>
+    <dialog
+      id="interview-appointment-dialog"
+      class="appointment-dialog"
+      aria-labelledby="interview-appointment-dialog-title"
+    >
+      <div class="appointment-dialog__header">
+        <h2
+          id="interview-appointment-dialog-title"
+          data-appointment-dialog-title
+          tabindex="-1"
+        >
+          انتخاب تاریخ مصاحبه
+        </h2>
+        <button
+          type="button"
+          class="appointment-dialog__close"
+          data-dialog-close
+          aria-label="بستن پنجره انتخاب تاریخ مصاحبه"
+        >
+          ×
+        </button>
+      </div>
+      <div class="appointment-month-nav">
+        <button type="button" data-month-previous aria-label="ماه قبل">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 6L15 12L9 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg></button
+        ><strong data-month-label></strong
+        ><button type="button" data-month-next aria-label="ماه بعد">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+      <section class="appointment-dialog__dates" aria-label="انتخاب تاریخ">
+        <div class="appointment-date-grid" data-date-grid>
+          <span class="appointment-calendar-weekday" aria-hidden="true">ش</span
+          ><span class="appointment-calendar-weekday" aria-hidden="true">ی</span
+          ><span class="appointment-calendar-weekday" aria-hidden="true">د</span
+          ><span class="appointment-calendar-weekday" aria-hidden="true">س</span
+          ><span class="appointment-calendar-weekday" aria-hidden="true">چ</span
+          ><span class="appointment-calendar-weekday" aria-hidden="true">پ</span
+          ><span
+            class="appointment-calendar-weekday is-friday"
+            aria-hidden="true"
+            >ج</span
+          >
+        </div>
+      </section>
+      <section
+        class="appointment-dialog__times"
+        aria-labelledby="appointment-times-title"
+      >
+        <h3 id="appointment-times-title">ساعت‌های موجود</h3>
+        <div class="appointment-dialog-time-grid" data-dialog-times></div>
+        <p class="appointment-dialog-time-empty" data-dialog-times-empty></p>
+      </section>
+      <div class="appointment-dialog__footer">
+        <div class="appointment-selection-summary">
+          زمان انتخابی شما :<strong data-selection-value></strong>
+        </div>
+        <button
+          type="button"
+          class="appointment-confirm"
+          data-confirm-selection
+        >
+          تأیید زمان انتخابی
+        </button>
+      </div>
+    </dialog>
+
+    <template id="netbime-header-template">
+      <header class="app-header" aria-label="سربرگ سامانه نت بیمه ۲۴">
+        <div class="app-header__brand">
+          <button
+            class="app-header__menu-trigger"
+            type="button"
+            aria-label="باز کردن منوی اصلی"
+            aria-expanded="false"
+          >
+            <span aria-hidden="true"></span><span aria-hidden="true"></span
+            ><span aria-hidden="true"></span>
+          </button>
+          <a
+            class="app-header__logo"
+            href="#"
+            aria-label="رفتن به داشبورد نت بیمه ۲۴"
+          >
+            <img
+              src="../../shared/assets/header/netbime-dashboard-logo.webp"
+              width="190"
+              height="45"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="app-header__actions" aria-label="حساب کاربری و اعلان‌ها">
+          <div class="app-header__profile-wrap">
+            <button
+              class="header-icon-button header-user-button"
+              type="button"
+              aria-label="حساب کاربری"
+              data-label-prefix="حساب کاربری"
+              aria-haspopup="menu"
+              aria-expanded="false"
+            >
+              <img
+                src="../../assets/icons/header-user.svg"
+                alt=""
+                width="30"
+                height="30"
+              />
+            </button>
+            <div class="profile-menu" role="menu" hidden>
+              <p
+                class="profile-menu__name"
+                data-user-name
+                data-default-name="کاربر نت بیمه ۲۴"
+              >
+                کاربر نت بیمه ۲۴
+              </p>
+              <button
+                type="button"
+                role="menuitem"
+                data-profile-action="account"
+              >
+                پروفایل
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                data-profile-action="notifications"
+              >
+                اعلان‌ها
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                data-profile-action="logout"
+              >
+                خروج
+              </button>
+            </div>
+          </div>
+          <span class="header-separator" aria-hidden="true"></span>
+          <div class="app-header__notifications-wrap">
+            <button
+              class="header-icon-button header-bell-button"
+              type="button"
+              aria-label="اعلان‌ها"
+              data-label-prefix="اعلان‌ها"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+            >
+              <span class="header-bell-icon-wrap">
+                <img
+                  src="../../assets/icons/header-bell.svg"
+                  alt=""
+                  width="40"
+                  height="40"
+                />
+                <span
+                  class="header-notification-badge"
+                  hidden
+                  aria-hidden="true"
+                ></span>
+              </span>
+            </button>
+            <div
+              class="notification-popover"
+              role="dialog"
+              aria-label="اعلان‌های اخیر"
+              hidden
+            >
+              <div class="notification-popover__body">
+                <div class="notification-popover__header">
+                  <h2>اعلان‌ها</h2>
+                  <button
+                    type="button"
+                    class="notification-popover__mark-all"
+                    data-notifications-mark-all
+                    hidden
+                  >
+                    خواندن همه
+                  </button>
+                </div>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="initial"
+                >
+                  برای مشاهده اعلان‌ها دکمه اعلان را انتخاب کنید.
+                </p>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="loading"
+                  role="status"
+                  hidden
+                >
+                  در حال دریافت اعلان‌ها…
+                </p>
+                <div
+                  class="notification-popover__state notification-popover__state--error"
+                  data-notification-state="error"
+                  role="alert"
+                  hidden
+                >
+                  <p data-notification-error-message>
+                    دریافت اعلان‌ها انجام نشد.
+                  </p>
+                  <button type="button" data-notifications-retry>
+                    تلاش دوباره
+                  </button>
+                </div>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="coming-soon"
+                  hidden
+                >
+                  این بخش بزودی در دسترس قرار می‌گیرد.
+                </p>
+                <p
+                  class="notification-popover__state"
+                  data-notification-state="empty"
+                  hidden
+                >
+                  اعلان جدیدی ندارید.
+                </p>
+                <div data-notification-state="list" hidden>
+                  <ul
+                    class="notification-popover__list"
+                    data-notification-list
+                  ></ul>
+                </div>
+                <a
+                  class="notification-popover__all"
+                  data-notifications-all-link
+                  href="#"
+                  hidden
+                  >مشاهده همه اعلان‌ها</a
+                >
+                <span
+                  class="notification-popover__all"
+                  data-notifications-all-disabled
+                  aria-disabled="true"
+                  >بزودی</span
+                >
+                <template data-notification-item-template>
+                  <li class="notification-preview">
+                    <button
+                      type="button"
+                      class="notification-preview__button"
+                      data-notification-id=""
+                    >
+                      <span
+                        class="notification-preview__dot"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="notification-preview__content"
+                        ><strong data-notification-title></strong
+                        ><span data-notification-date></span
+                      ></span>
+                      <span class="sr-only" data-notification-read-state></span>
+                    </button>
+                  </li>
+                </template>
+              </div>
+              <span data-header-copy="notification-count-overflow" hidden
+                >۹۹+</span
+              >
+              <span data-header-copy="unread-notification-label" hidden
+                >{count} اعلان جدید</span
+              >
+              <span data-header-copy="notification-read" hidden
+                >خوانده شده</span
+              >
+              <span data-header-copy="notification-unread" hidden
+                >خوانده نشده</span
+              >
+            </div>
+          </div>
+        </div>
+      </header>
+    </template>
+
+    <template id="netbime-sidebar-template">
+      <aside class="app-sidebar" aria-label="ناوبری اصلی">
+        <nav class="app-sidebar__nav">
+          <ul class="sidebar-list">
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="dashboard"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/dashboard.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">داشبورد</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--parent"
+              data-sidebar-id="recruitment"
+            >
+              <button
+                class="sidebar-link sidebar-parent-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="sidebar-submenu-recruitment"
+              >
+                <img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/leads.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">فرایند جذب</span
+                ><span class="sidebar-chevron" aria-hidden="true"></span>
+              </button>
+              <ul
+                class="sidebar-submenu"
+                id="sidebar-submenu-recruitment"
+                hidden
+              >
+                <li class="sidebar-subitem" data-sidebar-id="moarefe">
+                  <a class="sidebar-sublink" href="../moarefe/moarefe.html"
+                    >جلسه معارفه</a
+                  >
+                </li>
+                <li class="sidebar-subitem" data-sidebar-id="interview">
+                  <a class="sidebar-sublink" href="../interview/interview.html"
+                    >مصاحبه</a
+                  >
+                </li>
+                <li
+                  class="sidebar-subitem sidebar-subitem--disabled"
+                  data-sidebar-id="documents"
+                >
+                  <span
+                    class="sidebar-sublink sidebar-sublink--disabled"
+                    aria-disabled="true"
+                    >مدارک<small>بزودی</small></span
+                  >
+                </li>
+                <li
+                  class="sidebar-subitem sidebar-subitem--disabled"
+                  data-sidebar-id="contract"
+                >
+                  <span
+                    class="sidebar-sublink sidebar-sublink--disabled"
+                    aria-disabled="true"
+                    >قرارداد<small>بزودی</small></span
+                  >
+                </li>
+              </ul>
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="leads"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/leads.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">سرنخ‌ها</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="performance"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/performance.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">ارزیابی عملکرد</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="reports"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/reports.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">گزارشات</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="steps"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/steps.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">دوازده گام</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="crm"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/crm.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">CRM</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="programs"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/programs.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">برنامه‌های من</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="notifications"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/notifications.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">اعلان‌ها</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="profile"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/profile.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">پروفایل</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="commission"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/commission.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">کارمزد</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li
+              class="sidebar-item sidebar-item--disabled"
+              data-sidebar-id="support"
+            >
+              <span
+                class="sidebar-link sidebar-link--disabled"
+                aria-disabled="true"
+                ><img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/support.png"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">پشتیبانی</span
+                ><span class="sidebar-coming-soon">بزودی</span></span
+              >
+            </li>
+            <li class="sidebar-item" data-sidebar-id="logout">
+              <button
+                class="sidebar-link sidebar-action-button"
+                type="button"
+                data-sidebar-action="logout"
+              >
+                <img
+                  class="sidebar-icon"
+                  src="../../shared/assets/sidebar/logout.svg"
+                  alt=""
+                  width="38"
+                  height="38"
+                /><span class="sidebar-label">خروج</span
+                ><span aria-hidden="true"></span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+        <p class="app-sidebar__copyright">
+          کلیه حقوق مادی و معنوی این سامانه<br />متعلق به
+          <strong>نت بیمه 24</strong> است
+        </p>
+      </aside>
+    </template>
+
+    <template id="dashboard-context-error-template">
+      <section class="dashboard-access-denied" role="alert">
+        <p data-context-error-message>دریافت اطلاعات حساب انجام نشد.</p>
+        <button
+          type="button"
+          class="dashboard-action dashboard-action--primary"
+          data-context-retry
+        >
+          تلاش دوباره
+        </button>
+      </section>
+    </template>
+    <template id="module-access-registration-template">
+      <section
+        class="dashboard-access-denied"
+        role="status"
+        aria-labelledby="registration-access-denied-title"
+      >
+        <div class="dashboard-access-denied__icon" aria-hidden="true">!</div>
+        <h1 id="registration-access-denied-title">
+          ثبت نام هنوز کامل نشده است
+        </h1>
+        <p>برای دسترسی به فرایند جذب ابتدا ثبت نام را تکمیل کنید.</p>
+        <a
+          class="dashboard-action dashboard-action--primary"
+          data-access-action
+          href="../../index.html"
+          >بازگشت به ثبت نام</a
+        >
+      </section>
+    </template>
+    <template id="module-access-unavailable-template">
+      <section
+        class="dashboard-access-denied"
+        role="status"
+        aria-labelledby="module-access-denied-title"
+      >
+        <div class="dashboard-access-denied__icon" aria-hidden="true">!</div>
+        <h1 id="module-access-denied-title">این بخش هنوز در دسترس نیست</h1>
+        <p>این بخش در نسخه فعلی فعال نیست.</p>
+        <a
+          class="dashboard-action dashboard-action--primary"
+          data-access-action
+          href="../moarefe/moarefe.html"
+          >بازگشت به جلسه معارفه</a
+        >
+      </section>
+    </template>
+    <template id="recruitment-stage-locked-template">
+      <section
+        class="dashboard-access-denied"
+        role="status"
+        aria-labelledby="stage-access-denied-title"
+      >
+        <div class="dashboard-access-denied__icon" aria-hidden="true">!</div>
+        <h1 id="stage-access-denied-title">این مرحله هنوز فعال نشده است</h1>
+        <p>این مرحله هنوز برای شما فعال نشده است.</p>
+        <p class="dashboard-access-denied__current">
+          <span>مرحله فعلی:</span><strong data-current-stage-title>—</strong>
+        </p>
+        <a
+          class="dashboard-action dashboard-action--primary"
+          data-access-action
+          href="../interview/interview.html"
+          >بازگشت به مرحله فعلی</a
+        >
+      </section>
+    </template>
+
+    <template id="recruitment-progress-template"
+      ><ol
+        class="recruitment-steps recruitment-progress"
+        aria-label="مراحل فرایند جذب"
+      ></ol
+    ></template>
+    <template id="recruitment-step-template">
+      <li class="recruitment-step" data-step-id="">
+        <div class="recruitment-step__surface" data-step-surface>
+          <span class="recruitment-step__icon"
+            ><img data-step-icon alt="" width="52" height="52" /></span
+          ><strong class="recruitment-step__title" data-step-title></strong
+          ><span class="recruitment-step__bullet" aria-hidden="true">•</span
+          ><span
+            class="recruitment-step__description"
+            data-step-description
+          ></span
+          ><span class="status-badge" data-step-status
+            ><span class="status-badge__marker" aria-hidden="true"
+              ><img data-status-icon alt="" hidden /><span
+                data-status-marker
+              ></span></span
+            ><span data-status-label></span
+          ></span>
+        </div>
+      </li>
+    </template>
+    <div data-recruitment-static-copy hidden>
+      <span
+        data-recruitment-status-copy="completed"
+        data-tone="success"
+        data-marker="✓"
+        >تکمیل شده</span
+      >
+      <span
+        data-recruitment-status-copy="available"
+        data-tone="neutral"
+        data-marker="•"
+        >آماده انجام</span
+      >
+      <span
+        data-recruitment-status-copy="pending"
+        data-tone="pending"
+        data-icon="../../shared/assets/common/recruitment-reviewing.svg"
+        >در انتظار بررسی</span
+      >
+      <span
+        data-recruitment-status-copy="in_progress"
+        data-tone="pending"
+        data-icon="../../shared/assets/common/recruitment-reviewing.svg"
+        >در حال انجام</span
+      >
+      <span
+        data-recruitment-status-copy="needs_action"
+        data-tone="danger"
+        data-marker="!"
+        >نیاز به اقدام</span
+      >
+      <span
+        data-recruitment-status-copy="rejected"
+        data-tone="danger"
+        data-marker="×"
+        >رد شده</span
+      >
+      <span
+        data-recruitment-status-copy="locked"
+        data-tone="locked"
+        data-marker="○"
+        >هنوز فعال نشده</span
+      >
+    </div>
+
+    <template id="appointment-calendar-day-template"
+      ><button
+        type="button"
+        class="appointment-date-button"
+        data-calendar-dynamic
+      >
+        <span
+          class="appointment-date-button__weekday"
+          data-calendar-weekday
+        ></span
+        ><strong
+          class="appointment-date-button__date"
+          data-calendar-date
+        ></strong
+        ><small data-calendar-state hidden></small
+        ><span
+          class="appointment-date-button__holiday-name"
+          data-calendar-holiday
+          hidden
+        ></span></button
+    ></template>
+    <template id="appointment-calendar-empty-template"
+      ><span
+        class="appointment-calendar-empty"
+        aria-hidden="true"
+        data-calendar-dynamic
+      ></span
+    ></template>
+    <template id="appointment-time-slot-template"
+      ><button type="button" class="appointment-dialog-time">
+        <span data-dialog-time-range></span
+        ><small data-dialog-time-state hidden></small></button
+    ></template>
+
+    <div data-page-copy-bank hidden>
+      <span data-page-copy="interview-available"
+        >زمان مورد نظر خود را برای برگزاری مصاحبه انتخاب کنید</span
+      >
+      <span data-page-copy="interview-pending"
+        >زمان انتخابی شما در انتظار تایید است.</span
+      >
+      <span data-page-copy="interview-approved"
+        >مصاحبه شما روز {appointment} برگزار خواهد شد</span
+      >
+      <span data-page-copy="confirmed-time-missing"
+        >زمان تایید شده هنوز دریافت نشده است.</span
+      >
+      <span data-page-copy="interview-rejected"
+        >مصاحبه شما برگزار شده و نتیجه در اسرع وقت به شما اطلاع رسانی
+        میشود.</span
+      >
+      <span data-page-copy="interview-completed"
+        >مصاحبه خود را با موفقیت پشت سر گذاشتید !</span
+      >
+      <span data-page-copy="documents-available"
+        >مدارک خود را بارگذاری کنید</span
+      >
+      <span data-page-copy="selection-required"
+        >یک زمان مصاحبه را انتخاب کرده و شرایط را تایید کنید.</span
+      >
+      <span data-page-copy="submit-failed"
+        >ثبت درخواست انجام نشد. دوباره تلاش کنید.</span
+      >
+      <span data-page-copy="submit-failed-interview"
+        >ثبت درخواست مصاحبه انجام نشد. دوباره تلاش کنید.</span
+      >
+      <span data-page-copy="submit-success"
+        >درخواست زمان مصاحبه ثبت شد و در انتظار تایید است.</span
+      >
+      <span data-page-copy="page-load-failed">دریافت اطلاعات انجام نشد.</span>
+      <span data-shell-copy="logout-failed">خروج از حساب انجام نشد.</span>
+      <span data-shell-copy="logout-failed-retry"
+        >خروج از حساب انجام نشد. دوباره تلاش کنید.</span
+      >
+      <span data-shell-copy="profile-coming-soon"
+        >پروفایل بزودی در دسترس قرار می‌گیرد.</span
+      >
+      <span data-shell-copy="notifications-coming-soon"
+        >اعلان‌ها بزودی در دسترس قرار می‌گیرند.</span
+      >
+      <span data-shell-copy="context-load-failed"
+        >دریافت اطلاعات حساب کاربری انجام نشد.</span
+      >
+      <span data-welcome-suffix="default"> عزیز،</span
+      ><span data-welcome-suffix="ye">ی عزیز،</span>
+    </div>
+    <div data-appointment-copy-bank hidden>
+      <span data-appointment-copy="time-range">از ساعت {start} تا {end}</span>
+      <span data-appointment-copy="time-range-short">{start} تا {end}</span>
+      <span data-appointment-copy="status-holiday">تعطیل</span
+      ><span data-appointment-copy="status-past">گذشته</span
+      ><span data-appointment-copy="status-taken">رزرو شده</span
+      ><span data-appointment-copy="status-inactive">غیرفعال</span>
+      <span data-appointment-copy="selection-required"
+        >یک زمان را انتخاب کرده و شرایط را تایید کنید.</span
+      >
+      <span data-appointment-copy="friday-holiday">جمعه · تعطیل</span
+      ><span data-appointment-copy="official-holiday">تعطیل رسمی</span
+      ><span data-appointment-copy="backend-holiday">تعطیل</span
+      ><span data-appointment-copy="no-time">بدون زمان</span>
+      <span data-appointment-copy="initial-time-empty"
+        >برای مشاهده ساعت‌های موجود، یک تاریخ را انتخاب کنید.</span
+      >
+      <span data-appointment-copy="holiday-time-empty"
+        >این روز تعطیل است و امکان انتخاب زمان وجود ندارد.</span
+      >
+      <span data-appointment-copy="holiday-named-time-empty"
+        >این روز تعطیل است ({holiday}) و امکان انتخاب زمان وجود ندارد.</span
+      >
+      <span data-appointment-copy="date-no-slots"
+        >برای این تاریخ زمانی تعریف نشده است.</span
+      >
+      <span data-appointment-copy="no-selectable-time"
+        >زمان قابل انتخابی برای این تاریخ باقی نمانده است.</span
+      >
+      <span data-appointment-copy="selection-confirmed"
+        >زمان انتخابی شما ثبت شد.</span
+      >
+      <span data-appointment-copy="date-friday-aria">جمعه، تعطیل</span
+      ><span data-appointment-copy="date-official-aria"
+        >تعطیل رسمی{holidaySuffix}</span
+      ><span data-appointment-copy="date-backend-aria"
+        >تعطیل{holidaySuffix}</span
+      ><span data-appointment-copy="date-unavailable-aria"
+        >بدون زمان قابل انتخاب</span
+      >
+    </div>
+  </body>
+</html>

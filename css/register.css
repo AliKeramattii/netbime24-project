@@ -1,0 +1,100 @@
+.form-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-block-size: 40px;
+}
+.form-heading h1 {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 40px;
+}
+.form-intro {
+  color: var(--color-muted);
+  font-size: 16px;
+  line-height: 26px;
+  margin-block-start: 11px;
+}
+.mobile-fields {
+  margin-block-start: 86px;
+}
+.mobile-form .button-primary {
+  margin-block-start: 30px;
+}
+.mobile-form .button-primary:not(:disabled) {
+  background: var(--gradient-mobile-button);
+}
+.mobile-form.has-value .form-input:not([aria-invalid="true"]) {
+  border-color: var(--color-muted);
+}
+.code-fields {
+  margin-block-start: 44px;
+}
+.phone-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  block-size: 57px;
+  background: var(--color-surface);
+  border-radius: var(--radius-control);
+}
+.phone-summary bdi {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+.phone-summary .icon-button {
+  position: absolute;
+  inset-inline-end: 9px;
+}
+.phone-summary .icon-button img {
+  inline-size: 36px;
+  block-size: 36px;
+}
+.code-inputs {
+  direction: ltr;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin-block-start: 26px;
+}
+.code-input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: 55px;
+  border: 1.5px solid var(--color-code-border);
+  border-radius: var(--radius-control);
+  text-align: center;
+  font-size: 24px;
+  color: var(--color-ink);
+  padding: 4px;
+  background: var(--color-white);
+}
+.code-input:focus {
+  border-color: var(--color-text-muted);
+}
+.code-input[aria-invalid="true"] {
+  border: 1px solid var(--color-code-error);
+}
+.code-form .field-error {
+  color: var(--color-mobile-error);
+}
+.resend-row {
+  text-align: center;
+  margin-block-start: 37px;
+  block-size: 30px;
+  font-size: 15px;
+}
+.resend-timer {
+  line-height: 30px;
+  font-size: 14px;
+}
+.code-form .button-primary {
+  margin-block-start: 42px;
+}
+.code-form.has-error .resend-row {
+  margin-block-start: 23px;
+}
+.code-form.has-error .button-primary {
+  margin-block-start: 42px;
+}

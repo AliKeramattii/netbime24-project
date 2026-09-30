@@ -1,0 +1,147 @@
+.button {
+  border: 0;
+  border-radius: var(--radius-control);
+  min-block-size: var(--control-height);
+  padding: 12px 24px;
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 800;
+}
+.button-primary {
+  background: var(--gradient-button);
+  color: var(--color-white);
+  inline-size: 100%;
+}
+.button-primary:disabled {
+  background: var(--color-disabled);
+  color: var(--color-disabled-text);
+}
+.button-primary:not(:disabled):hover {
+  filter: brightness(0.96);
+}
+.button-secondary {
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+.icon-button {
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  min-inline-size: 36px;
+  min-block-size: 40px;
+}
+.icon-button img {
+  inline-size: 26px;
+  block-size: 28px;
+}
+.form-label {
+  display: block;
+  font-size: 15px;
+  color: var(--color-muted);
+  margin-block-end: 8px;
+}
+.input-wrap {
+  position: relative;
+}
+.form-input {
+  inline-size: 100%;
+  block-size: var(--control-height);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-white);
+  color: var(--color-ink);
+  padding: 12px 45px;
+  text-align: right;
+  font-size: 14px;
+}
+.form-input::placeholder {
+  color: var(--color-placeholder);
+}
+.form-input:focus {
+  border-color: var(--color-text-muted);
+}
+.input-icon {
+  position: absolute;
+  inset-inline-start: 12px;
+  inset-block-start: 10px;
+  inline-size: 26px;
+  block-size: 36px;
+  pointer-events: none;
+}
+.error-icon {
+  position: absolute;
+  inset-inline-end: 17px;
+  inset-block-start: 18px;
+  inline-size: 22px;
+  block-size: 22px;
+}
+.field-error {
+  color: var(--color-mobile-error);
+  font-size: 15px;
+  line-height: 23px;
+  margin-block-start: 8px;
+}
+.form-input[aria-invalid="true"] {
+  border: 1px solid var(--color-mobile-error);
+}
+.text-button {
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font-size: 15px;
+  padding: 4px 8px;
+}
+.stepper {
+  display: flex;
+  gap: 24px;
+  padding: 0;
+  list-style: none;
+}
+.progress-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-muted);
+}
+.progress-step__number {
+  display: grid;
+  place-items: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 50%;
+  background: var(--color-page-background);
+}
+.progress-step__number img {
+  inline-size: 24px;
+  block-size: 24px;
+}
+.progress-step[aria-current="step"] {
+  color: var(--color-primary);
+}
+.progress-step[aria-current="step"] .progress-step__number {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.progress-step.is-complete {
+  color: var(--color-teal);
+}
+dialog {
+  border: 0;
+  border-radius: 20px;
+  padding: 32px;
+  inline-size: min(480px, calc(100% - 32px));
+  color: var(--color-ink);
+}
+dialog::backdrop {
+  background: var(--color-backdrop);
+}
+dialog h2 {
+  font-size: 22px;
+  margin-block-end: 16px;
+}
+dialog p {
+  margin-block-end: 24px;
+}

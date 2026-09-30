@@ -1,0 +1,357 @@
+@media (max-width: 1250px) {
+  .registration-layout {
+    gap: 64px;
+    padding-inline: 40px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .brand-logo {
+    inline-size: 380px;
+  }
+  .brand-content h2 {
+    font-size: 30px;
+  }
+  .brand-content p {
+    font-size: 16px;
+    white-space: normal;
+    padding-inline: 16px;
+  }
+  .brand-links {
+    gap: 18px;
+  }
+  .brand-links button {
+    font-size: 14px;
+  }
+}
+@media (max-width: 992px) {
+  .registration-layout {
+    gap: 32px;
+    padding: 32px;
+  }
+  .brand-panel {
+    max-block-size: 736px;
+  }
+  .brand-logo {
+    inline-size: 300px;
+  }
+  .brand-content h2 {
+    font-size: 25px;
+  }
+  .brand-links {
+    gap: 10px;
+    inset-inline: 12px;
+  }
+  .registration-region {
+    padding-block-start: 160px;
+  }
+  .form-heading h1 {
+    font-size: 22px;
+  }
+  .form-intro {
+    font-size: 14px;
+  }
+
+  .registration-stepper-mount {
+    inline-size: min(638px, calc(100% - 32px));
+  }
+  .registration-details-wrap {
+    inline-size: min(638px, calc(100% - 32px));
+  }
+}
+@media (max-width: 767px) {
+  .registration-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    overflow-y: auto; /* stacked layout: the whole column is the scroll area */
+    padding: 20px;
+  }
+  .brand-panel {
+    block-size: auto;
+    min-block-size: 252px;
+    padding-block-end: 56px; /* room for the absolutely positioned links row */
+    border-radius: 16px;
+  }
+  .brand-content {
+    padding-block-start: 12px;
+  }
+  .brand-logo {
+    inline-size: 170px;
+  }
+  .brand-content h2 {
+    font-size: 23px;
+    margin-block-start: 4px;
+  }
+  .brand-content p {
+    font-size: 13px;
+    margin-block-start: 5px;
+  }
+  .brand-links {
+    inset-block-end: 9px;
+    gap: 18px;
+  }
+  .brand-links button {
+    font-size: 12px;
+  }
+  .registration-region {
+    overflow-y: visible;
+    padding-block: 0 24px;
+    inline-size: 100%;
+    max-inline-size: 520px;
+    margin-inline: auto;
+  }
+  .registration-card.is-code {
+    max-inline-size: none;
+  }
+  .form-heading h1 {
+    font-size: 23px;
+  }
+  .form-intro {
+    font-size: 14px;
+  }
+  .mobile-fields {
+    margin-block-start: 40px;
+  }
+  .code-fields {
+    margin-block-start: 30px;
+  }
+  .code-inputs {
+    gap: 6px;
+  }
+  .resend-row {
+    margin-block-start: 24px;
+  }
+  .code-form .button-primary {
+    margin-block-start: 24px;
+  }
+  .code-form.has-error .button-primary {
+    margin-block-start: 24px;
+  }
+}
+@media (max-width: 380px) {
+  .registration-layout {
+    padding: 16px;
+  }
+  .code-input {
+    block-size: 49px;
+  }
+  .brand-content p {
+    font-size: 12px;
+  }
+}
+
+
+
+@media (max-width: 700px) {
+  .registration-workspace {
+    padding-block: 28px 32px;
+  }
+  .registration-stepper-mount {
+    inline-size: calc(100% - 24px);
+  }
+  .registration-stepper {
+    --step-size: 32px;
+    padding: 16px 14px 18px;
+    border-radius: 20px;
+  }
+  .stepper-progress {
+    column-gap: 16px;
+    row-gap: 8px;
+    font-size: 13px;
+  }
+  .registration-stepper .stepper {
+    margin-block-start: 20px;
+  }
+  .registration-stepper .progress-step {
+    gap: 6px;
+  }
+  .registration-stepper .progress-step__number {
+    font-size: 13px;
+  }
+  .progress-step__label {
+    font-size: 12px;
+  }
+  .registration-details-wrap {
+    inline-size: calc(100% - 24px);
+    margin-block-start: 24px;
+  }
+  .registration-details-card,
+  .identity-card.is-expanded,
+  .identity-card.has-manager {
+    min-block-size: auto;
+    padding: 28px 22px;
+    border-radius: 20px;
+  }
+  .registration-details-form {
+    min-block-size: 0;
+    margin: -28px -22px;
+    padding: 28px 22px;
+  }
+  .registration-details-header h1 {
+    font-size: 20px;
+  }
+  .registration-details-header p {
+    margin-block-start: 10px;
+    font-size: 14px;
+  }
+  .registration-fields-grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+  .identity-fields,
+  .contact-fields {
+    margin-block-start: 32px;
+    row-gap: 16px;
+  }
+  .referral-area,
+  .manual-referral-field,
+  .registration-field--postal,
+  .contact-mobile-field {
+    inline-size: 100%;
+    grid-column: 1;
+  }
+  .referral-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .referral-option {
+    inline-size: 100%;
+    justify-content: space-between;
+  }
+  .identity-confirmation,
+  .registration-form-actions {
+    position: static;
+    inset: auto;
+  }
+  .identity-confirmation {
+    margin-block-start: 34px;
+  }
+  .registration-form-actions {
+    margin-block-start: 28px;
+  }
+  .registration-back-button,
+  .registration-next-button,
+  .identity-card.is-expanded .registration-back-button,
+  .identity-card.is-expanded .registration-next-button {
+    block-size: 48px;
+  }
+  .contact-form .registration-form-actions {
+    position: static;
+  }
+
+  .searchable-combobox__popup {
+    position: absolute;
+    max-inline-size: 100%;
+  }
+  .persian-calendar {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    inline-size: min(320px, calc(100vw - 72px));
+  }
+  .employment-card .registration-form-actions {
+    margin-block-start: 28px;
+    padding-block-start: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-stepper-mount {
+    inline-size: calc(100% - 16px);
+  }
+  .registration-stepper {
+    padding-inline: 10px;
+  }
+  .progress-step__label {
+    max-inline-size: 72px;
+    font-size: 11px;
+  }
+  .registration-details-wrap {
+    inline-size: calc(100% - 16px);
+  }
+  .registration-details-card {
+    padding-inline: 18px;
+  }
+  .registration-details-form {
+    margin-inline: -18px;
+    padding-inline: 18px;
+  }
+  .registration-form-actions {
+    gap: 12px;
+  }
+  .registration-back-button {
+    inline-size: 126px;
+  }
+  .registration-next-button {
+    inline-size: 104px;
+  }
+  .warning-box {
+    align-items: flex-start;
+  }
+}
+
+
+
+@media (max-width: 420px) {
+  .persian-calendar {
+    inset-inline: 50% auto;
+    transform: translateX(50%);
+    inline-size: min(304px, calc(100vw - 44px));
+    padding: 10px;
+  }
+  .persian-calendar__header {
+    grid-template-columns: 32px minmax(82px, 1fr) 78px 32px;
+    gap: 4px;
+  }
+  .calendar-day,
+  .calendar-weekday,
+  .calendar-empty {
+    block-size: 32px;
+  }
+  .employment-date-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Short viewports (small laptops, browser zoom of 125% and above, landscape tablets/phones):
+   compact the two-column entry page in steps so the brand panel and the form stay inside the
+   viewport. Only spacing and logo size change; the panel artwork keeps its shape. */
+@media (min-width: 768px) and (max-height: 1023px) {
+  .registration-layout {
+    padding-block: 32px;
+  }
+  .registration-region {
+    padding-block-start: 120px;
+  }
+}
+@media (min-width: 768px) and (max-height: 800px) {
+  .brand-content {
+    padding-block-start: 16px;
+  }
+  .brand-logo {
+    inline-size: 360px;
+  }
+  .registration-region {
+    padding-block-start: 64px;
+  }
+}
+@media (min-width: 768px) and (max-height: 600px) {
+  .brand-logo {
+    inline-size: 220px;
+  }
+  .brand-content h2 {
+    margin-block-start: 4px;
+  }
+  .registration-region {
+    padding-block-start: 24px;
+  }
+}
+@media (min-width: 768px) and (max-height: 440px) {
+  .brand-content {
+    padding-block-start: 16px;
+  }
+  .brand-logo {
+    inline-size: 130px;
+  }
+  .brand-content p {
+    margin-block-start: 4px;
+  }
+}

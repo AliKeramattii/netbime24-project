@@ -1,0 +1,843 @@
+body.has-registration-workspace {
+  background: var(--color-page-background);
+}
+
+.registration-workspace {
+  direction: rtl;
+  block-size: calc(100vh - var(--dashboard-header-height));
+  block-size: calc(100dvh - var(--dashboard-header-height));
+  position: relative; /* scroll area: contain absolutely positioned descendants */
+  overflow-y: auto;
+  padding-block: 44px 30px;
+  background: var(--color-page-background);
+}
+
+/* Stepper — design reference: design/مراحل.svg (331x714 card, 25px radius).
+   Wide screens: vertical card beside the form, stretched to the form card's height.
+   Narrower screens: the same card above the form, with the steps laid out in a row. */
+.registration-stepper-mount {
+  inline-size: min(638px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.registration-stepper {
+  --stepper-accent: var(--color-teal);
+  --stepper-idle: var(--color-step-idle);
+  --stepper-text: var(--color-text-muted);
+  --step-size: 34px;
+  inline-size: 100%;
+  block-size: 100%;
+  padding: 20px 20px 24px;
+  border-radius: 25px;
+  background: var(--color-white);
+  box-shadow: 0 8px 15px rgb(0 0 0 / 3%);
+}
+
+.stepper-progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 30px;
+  row-gap: 12px;
+  color: var(--stepper-text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.stepper-progress__label {
+  grid-column: 1 / -1;
+}
+
+.stepper-progress__track {
+  position: relative;
+  display: block;
+  block-size: 7px;
+  border-radius: 4px;
+  background: var(--color-step-track);
+  overflow: hidden;
+}
+
+.stepper-progress__fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 25%;
+  border-radius: inherit;
+  background: var(--stepper-accent);
+}
+
+.registration-stepper[data-active-index="1"] .stepper-progress__fill {
+  inline-size: 50%;
+}
+
+.registration-stepper[data-active-index="2"] .stepper-progress__fill {
+  inline-size: 75%;
+}
+
+.registration-stepper[data-active-index="3"] .stepper-progress__fill {
+  inline-size: 100%;
+}
+
+.stepper-progress__percent {
+  min-inline-size: 3ch;
+  text-align: end;
+}
+
+.registration-stepper .stepper {
+  direction: rtl;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.registration-stepper .progress-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--stepper-text);
+  text-align: center;
+}
+
+/* Dashed connector to the next step (inline direction in the row layout). */
+.registration-stepper .progress-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(var(--step-size) / 2 - 1px);
+  inset-inline-start: calc(50% + var(--step-size) / 2 + 8px);
+  inline-size: calc(100% - var(--step-size) - 16px);
+  block-size: 2px;
+  background: repeating-linear-gradient(
+    to left,
+    var(--stepper-idle) 0 3px,
+    transparent 3px 6px
+  );
+}
+
+.registration-stepper .progress-step.is-complete:not(:last-child)::after {
+  background: var(--stepper-accent);
+}
+
+.registration-stepper .progress-step__number {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  inline-size: var(--step-size);
+  block-size: var(--step-size);
+  border: 1px solid var(--stepper-idle);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--stepper-text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.progress-step__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-inline-size: 0;
+}
+
+.progress-step__label {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.progress-step__description {
+  display: none;
+  color: var(--stepper-idle);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.registration-stepper .progress-step.is-current {
+  color: var(--stepper-accent);
+}
+
+.registration-stepper .progress-step.is-current .progress-step__number {
+  border-color: var(--stepper-accent);
+  background: var(--color-white);
+  color: var(--stepper-accent);
+}
+
+.registration-stepper .progress-step.is-complete .progress-step__number {
+  border-color: var(--stepper-accent);
+  background: var(--stepper-accent);
+  color: var(--color-white);
+}
+
+@media (min-width: 1100px) {
+  body:not(.has-success-state) .registration-workspace {
+    display: grid;
+    grid-template-columns: 331px minmax(0, 638px);
+    justify-content: center;
+    align-content: start;
+    align-items: stretch;
+    column-gap: 32px;
+    padding-inline: 24px;
+  }
+
+  body:not(.has-success-state) .registration-stepper-mount,
+  body:not(.has-success-state) .registration-details-wrap {
+    inline-size: auto;
+    margin: 0;
+  }
+
+  .registration-stepper .stepper {
+    grid-template-columns: minmax(0, 1fr);
+    margin-block-start: 50px;
+  }
+
+  .registration-stepper .progress-step {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    min-block-size: 125px;
+    text-align: start;
+  }
+
+  .registration-stepper .progress-step:last-child {
+    min-block-size: 0;
+  }
+
+  /* Vertical dashed connector: 10px below this circle to 10px above the next one. */
+  .registration-stepper .progress-step:not(:last-child)::after {
+    inset-block: calc(var(--step-size) + 10px) 10px;
+    inset-inline-start: calc(var(--step-size) / 2 - 1px);
+    inline-size: 2px;
+    block-size: auto;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--stepper-idle) 0 3px,
+      transparent 3px 6px
+    );
+  }
+
+  .progress-step__label {
+    font-size: 16px;
+  }
+
+  .progress-step__description {
+    display: block;
+  }
+}
+
+.registration-details-wrap {
+  inline-size: min(638px, calc(100% - 48px));
+  margin: 36px auto 0;
+}
+
+.registration-details-card {
+  position: relative;
+  inline-size: 100%;
+  min-block-size: 714px;
+  padding: 43px 31px 27px;
+  border-radius: 25px;
+  background: var(--color-white);
+  box-shadow: 0 15px 30px rgb(0 0 0 / 15%);
+  color: var(--color-ink);
+}
+
+.identity-card.is-expanded {
+  min-block-size: 806px;
+}
+
+.identity-card.has-manager {
+  min-block-size: 833px;
+}
+
+.registration-details-form {
+  position: relative;
+  min-block-size: inherit;
+  margin: -43px -31px -27px;
+  padding: 43px 31px 27px;
+}
+
+.registration-details-header h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.7;
+}
+
+.registration-details-header p {
+  margin-block-start: 18px;
+  color: rgb(11 30 60 / 60%);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.registration-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 273px));
+  column-gap: 30px;
+}
+
+.identity-fields,
+.contact-fields {
+  margin-block-start: 55px;
+  row-gap: 18px;
+}
+
+.registration-field {
+  min-inline-size: 0;
+}
+
+.registration-field label,
+.referral-choice legend,
+.manual-referral-field label {
+  display: block;
+  margin-block-end: 8px;
+  color: rgb(11 30 60 / 50%);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.registration-input {
+  inline-size: 100%;
+  block-size: 50px;
+  border: 1px solid rgb(11 30 60 / 30%);
+  border-radius: 8px;
+  padding: 9px 15px;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: inherit;
+  font-size: 14px;
+  text-align: right;
+}
+
+.registration-input[dir="ltr"] {
+  text-align: right;
+}
+
+.identity-key-input {
+  background: rgb(217 217 217 / 28%);
+}
+
+.registration-input:focus,
+.registration-select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.registration-input[aria-invalid="true"] {
+  border-color: var(--color-code-error);
+  box-shadow: none;
+}
+
+.registration-field-error {
+  margin-block-start: 4px;
+  color: var(--color-code-error);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.referral-area {
+  margin-block-start: 32px;
+  margin-inline-end: auto;
+  inline-size: 273px;
+}
+
+.referral-choice {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.referral-options {
+  display: grid;
+  grid-template-columns: repeat(2, 120px);
+  gap: 32px;
+}
+
+.referral-option {
+  block-size: 42px;
+  border: 1px solid rgb(11 30 60 / 35%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  padding-inline: 16px 12px;
+  color: rgb(11 30 60 / 75%);
+  cursor: pointer;
+}
+
+.referral-option:has(input:focus-visible) {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.referral-option.is-selected {
+  border-color: var(--color-primary);
+}
+
+.referral-option input[type="radio"] {
+  appearance: none;
+  inline-size: 19px;
+  block-size: 19px;
+  flex: 0 0 19px;
+  border: 1.5px solid rgb(11 30 60 / 55%);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  background: var(--color-white);
+}
+
+.referral-option input[type="radio"]::before {
+  content: "";
+  inline-size: 11px;
+  block-size: 11px;
+  border-radius: 50%;
+  transform: scale(0);
+  background: currentColor;
+}
+
+.referral-option input[type="radio"]:checked {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.referral-option input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.referral-option input:disabled {
+  opacity: 0.55;
+}
+
+.manual-referral-field {
+  margin-block-start: 28px;
+  inline-size: 178px;
+}
+
+.referral-code-input {
+  block-size: 42px;
+  border-radius: 6px;
+  text-align: right;
+}
+
+.referral-manager-name,
+.referral-link-details p {
+  color: rgb(11 30 60 / 45%);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.referral-manager-name {
+  margin-block-start: 5px;
+  white-space: nowrap;
+}
+
+.referral-manager-name strong,
+.referral-link-details strong {
+  font-weight: 500;
+}
+
+.referral-link-details {
+  margin-block-start: 24px;
+  min-block-size: 69px;
+}
+
+.referral-link-details p + p {
+  margin-block-start: 9px;
+}
+
+.identity-confirmation {
+  position: absolute;
+  inset-inline: 32px;
+  inset-block-end: 115px;
+}
+
+.confirmation-note {
+  margin-block-end: 14px;
+  color: rgb(11 30 60 / 45%);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: right;
+}
+
+.warning-box {
+  min-block-size: 66px;
+  border: 2px solid var(--color-warning-border);
+  border-radius: 9px;
+  background: var(--color-warning-surface);
+  color: #e2a100;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 16px;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.warning-icon {
+  inline-size: 25px;
+  block-size: 25px;
+  flex: 0 0 25px;
+}
+
+.registration-form-actions {
+  position: absolute;
+  inset-inline: 31px;
+  inset-block-end: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  direction: rtl;
+}
+
+.registration-back-button,
+.registration-next-button {
+  border-radius: 8px;
+  block-size: 46px;
+  font-family: inherit;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.identity-card.is-expanded .registration-back-button,
+.identity-card.is-expanded .registration-next-button {
+  block-size: 52px;
+}
+
+.registration-back-button {
+  inline-size: 135px;
+  border: 1.5px solid var(--color-ink);
+  background: var(--color-white);
+  color: rgb(11 30 60 / 75%);
+}
+
+.registration-next-button {
+  inline-size: 108px;
+  border: 0;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+.registration-next-button:disabled {
+  background: rgb(11 30 60 / 25%);
+  color: rgb(11 30 60 / 45%);
+}
+
+.button-arrow {
+  font-size: 29px;
+  line-height: 1;
+  font-family: var(--font-body);
+  font-weight: 300;
+}
+
+.contact-fields {
+  grid-template-rows: auto auto auto auto;
+}
+
+.registration-field--full {
+  grid-column: 1 / -1;
+}
+
+.registration-field--postal {
+  grid-column: 1;
+  inline-size: 240px;
+  justify-self: start;
+}
+
+.contact-mobile-field {
+  grid-column: 1;
+}
+
+.registration-select {
+  appearance: none;
+  color: rgb(11 30 60 / 45%);
+  padding-inline-start: 48px;
+}
+
+.registration-select:valid {
+  color: var(--color-ink);
+}
+
+.select-field {
+  position: relative;
+}
+
+.select-field::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 17px;
+  inset-block-start: 48px;
+  inline-size: 11px;
+  block-size: 11px;
+  border-right: 2px solid var(--color-text-muted);
+  border-bottom: 2px solid var(--color-text-muted);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.identity-card:not(.is-expanded) .registration-form-actions,
+.contact-form .registration-form-actions {
+  inset-block-end: 39px;
+}
+
+.registration-field--postal {
+  margin-block-start: 12px;
+}
+
+/* Reusable searchable comboboxes retain the existing 50px input visual language. */
+.searchable-field {
+  position: relative;
+}
+
+.searchable-combobox {
+  position: relative;
+}
+
+.searchable-combobox__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  text-align: right;
+}
+
+.searchable-combobox__trigger:disabled {
+  cursor: not-allowed;
+  background: rgb(217 217 217 / 22%);
+  color: rgb(11 30 60 / 35%);
+}
+
+.searchable-combobox__value {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-ink);
+}
+
+.searchable-combobox__value.is-placeholder {
+  color: rgb(11 30 60 / 45%);
+}
+
+.searchable-combobox__chevron {
+  flex: 0 0 11px;
+  inline-size: 11px;
+  block-size: 11px;
+  border-inline-end: 2px solid var(--color-text-muted);
+  border-block-end: 2px solid var(--color-text-muted);
+  transform: rotate(45deg);
+  margin-block-start: -5px;
+}
+
+.searchable-combobox__popup {
+  position: absolute;
+  z-index: 40;
+  inset-inline: 0;
+  inset-block-start: calc(100% + 6px);
+  border: 1px solid rgb(11 30 60 / 18%);
+  border-radius: 8px;
+  background: var(--color-white);
+  box-shadow: 0 10px 28px rgb(0 0 0 / 14%);
+  padding: 8px;
+}
+
+.searchable-combobox__popup[hidden] {
+  display: none;
+}
+
+.searchable-combobox__search {
+  inline-size: 100%;
+  block-size: 40px;
+  border: 1px solid rgb(11 30 60 / 22%);
+  border-radius: 6px;
+  padding-inline: 12px;
+  color: var(--color-ink);
+  background: var(--color-white);
+  font: inherit;
+  font-size: 13px;
+  direction: rtl;
+}
+
+.searchable-combobox__search:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.searchable-combobox__list {
+  max-block-size: 220px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin-block-start: 7px;
+  scrollbar-gutter: stable;
+}
+
+.searchable-combobox__option {
+  min-block-size: 38px;
+  border-radius: 5px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  color: rgb(11 30 60 / 78%);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.searchable-combobox__option:hover,
+.searchable-combobox__option.is-active {
+  background: var(--color-step-surface);
+  color: var(--color-primary);
+}
+
+.searchable-combobox__option[aria-selected="true"] {
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.searchable-combobox__empty {
+  margin: 10px 4px 4px;
+  color: rgb(11 30 60 / 45%);
+  font-size: 12px;
+  text-align: center;
+}
+
+.birth-date-control {
+  position: relative;
+}
+
+.birth-date-control .registration-input {
+  cursor: pointer;
+  padding-inline-end: 48px;
+}
+
+.birth-date-calendar-button {
+  position: absolute;
+  inset-inline-end: 7px;
+  inset-block-start: 6px;
+  inline-size: 38px;
+  block-size: 38px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgb(11 30 60 / 52%);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.birth-date-calendar-button:hover,
+.birth-date-calendar-button:focus-visible {
+  color: var(--color-primary);
+  background: var(--color-step-surface);
+}
+
+.birth-date-calendar-button svg {
+  inline-size: 22px;
+  block-size: 22px;
+}
+
+.persian-calendar {
+  position: absolute;
+  z-index: 50;
+  inset-inline-start: 0;
+  inset-block-start: calc(100% + 7px);
+  inline-size: min(320px, calc(100vw - 64px));
+  border: 1px solid rgb(11 30 60 / 18%);
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--color-white);
+  box-shadow: 0 12px 30px rgb(0 0 0 / 17%);
+  direction: rtl;
+}
+
+.persian-calendar[hidden] {
+  display: none;
+}
+
+.persian-calendar__header {
+  display: grid;
+  grid-template-columns: 34px minmax(90px, 1fr) 86px 34px;
+  align-items: center;
+  gap: 6px;
+  margin-block-end: 10px;
+}
+
+.calendar-nav {
+  inline-size: 34px;
+  block-size: 34px;
+  border: 1px solid rgb(11 30 60 / 18%);
+  border-radius: 6px;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font: 400 24px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.calendar-nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.calendar-select {
+  min-inline-size: 0;
+  block-size: 34px;
+  border: 1px solid rgb(11 30 60 / 18%);
+  border-radius: 6px;
+  background: var(--color-white);
+  color: var(--color-ink);
+  padding-inline: 7px;
+  font: inherit;
+  font-size: 12px;
+}
+
+.persian-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.calendar-weekday,
+.calendar-empty,
+.calendar-day {
+  min-inline-size: 0;
+  block-size: 34px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+}
+
+.calendar-weekday {
+  color: rgb(11 30 60 / 48%);
+  font-weight: 700;
+}
+
+.calendar-day {
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-ink);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.calendar-day:hover,
+.calendar-day:focus-visible {
+  background: var(--color-step-surface);
+  color: var(--color-primary);
+}
+
+.calendar-day.is-selected {
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 800;
+}

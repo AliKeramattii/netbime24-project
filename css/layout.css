@@ -1,0 +1,88 @@
+.registration-layout {
+  direction: ltr;
+  display: grid;
+  grid-template-columns: minmax(0, 632fr) minmax(0, 520fr);
+  gap: 128px;
+  grid-template-rows: minmax(0, 1fr);
+  max-inline-size: 1440px;
+  block-size: 100vh;
+  block-size: 100dvh;
+  margin-inline: auto;
+  padding: 64px 94px 64px 66px;
+}
+.brand-panel,
+.registration-region {
+  direction: rtl;
+}
+/* Design reference: design/Login Design.svg (540x992 panel, 15px radius). Layers, top to
+   bottom: shield illustration (in-flow image), wave band anchored to the bottom, and the
+   gradient + teal glow stretched to the panel. The layout column stays 632x896; only the
+   visual layer follows the SVG, so zoom or a narrower column never reshapes the panel. */
+.brand-panel {
+  position: relative;
+  block-size: 100%;
+  max-block-size: 896px;
+  background:
+    url("../assets/images/brand-wave.webp") center bottom / 100% auto no-repeat,
+    url("../assets/images/brand-background.svg") center / 100% 100% no-repeat;
+  border-radius: 18px;
+  color: var(--color-white);
+  text-align: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.brand-content {
+  padding-block-start: 24px;
+}
+/* The artwork sits right of centre in the design (its shield is offset ~8% of its width). */
+.brand-logo {
+  margin-inline: auto;
+  inline-size: 460px;
+  block-size: auto;
+  aspect-ratio: 690 / 720;
+  transform: translateX(8%);
+}
+.brand-content h2 {
+  margin-block-start: 12px;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.brand-content p {
+  margin-block-start: 16px;
+  font-size: 20px;
+  white-space: nowrap;
+}
+.brand-links {
+  position: absolute;
+  inset-block-end: 22px;
+  inset-inline: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 27px;
+}
+.brand-links button {
+  border: 0;
+  padding: 4px 0;
+  background: none;
+  font-size: 16px;
+  color: var(--color-white);
+}
+.brand-links span {
+  font-size: 24px;
+}
+.registration-region {
+  position: relative; /* scroll area: contain absolutely positioned descendants */
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding-block-start: 221px;
+}
+.registration-card {
+  inline-size: 100%;
+}
+.registration-card.is-code {
+  max-inline-size: 500px;
+  margin-inline-end: 0;
+}

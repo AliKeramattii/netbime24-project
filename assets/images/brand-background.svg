@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 992" preserveAspectRatio="none" fill="none"><rect width="540" height="992" fill="url(#brand_gradient)"/>
+<g filter="url(#brand_glow)"><rect x="697.146" y="881.931" width="1195.67" height="234.355" transform="rotate(-148.131 697.146 881.931)" fill="#078290"/></g>
+<defs><filter id="brand_glow" x="-618.293" y="-248.38" width="1739.17" height="1430.31" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="150"/>
+</filter><linearGradient id="brand_gradient" x1="540" y1="0" x2="-14.9211" y2="917.475" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFFFFF" stop-opacity="0"/>
+<stop offset="1" stop-color="#078290"/>
+</linearGradient></defs></svg>

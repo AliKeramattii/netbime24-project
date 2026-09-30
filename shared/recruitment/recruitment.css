@@ -1,0 +1,419 @@
+.recruitment-process-card {
+  inline-size: 100%;
+  min-block-size: 820px;
+  padding: 28px 34px 38px;
+  border-radius: var(--radius-card);
+  background: var(--color-white);
+  box-shadow: var(--dashboard-card-shadow);
+}
+
+.recruitment-process-card__title {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.7;
+}
+
+.recruitment-process-card__intro,
+.recruitment-process-card__withdraw-row p {
+  margin: 14px 0 0;
+  color: var(--color-recruitment-text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 2;
+}
+
+.recruitment-process-card__withdraw-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-block-start: 22px;
+}
+
+.recruitment-process-card__withdraw-row p {
+  margin: 0;
+}
+
+.recruitment-withdraw-button {
+  flex: 0 0 auto;
+  min-block-size: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1.5px solid var(--color-code-error);
+  border-radius: 7px;
+  padding-inline: 14px;
+  background: var(--color-white);
+  color: var(--color-code-error);
+  font: 600 14px/1.6 var(--font-body);
+  cursor: pointer;
+}
+
+.recruitment-withdraw-button span[aria-hidden="true"] {
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.recruitment-steps {
+  display: grid;
+  gap: 38px;
+  margin: 34px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recruitment-step {
+  position: relative;
+}
+
+.recruitment-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset-block-start: calc(100% + 1px);
+  inset-inline-start: 28px;
+  block-size: 40px;
+  border-inline-start: 2px dashed #b8c0ca;
+}
+
+.recruitment-step:not(.recruitment-step--locked):not(:last-child)::after {
+  border-color: var(--color-primary);
+}
+
+.recruitment-step__surface {
+  position: relative;
+  z-index: 1;
+  inline-size: 100%;
+  min-block-size: 80px;
+  display: grid;
+  grid-template-columns: 58px max-content 12px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  border: 2px solid var(--color-blue);
+  border-radius: var(--radius-appointment);
+  padding: 10px 16px 10px 18px;
+  background: var(--color-white);
+  color: var(--color-ink);
+  text-align: start;
+  }
+
+button.recruitment-step__surface {
+  cursor: pointer;
+}
+
+button.recruitment-step__surface:hover {
+  box-shadow: 0 0 0 3px rgb(78 144 244 / 10%);
+}
+
+.recruitment-step--locked .recruitment-step__surface {
+  border-color: #c9c9c9;
+  color: #8b8b8b;
+  cursor: default;
+}
+
+.recruitment-step__icon {
+  display: grid;
+  place-items: center;
+  inline-size: 54px;
+  block-size: 54px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.recruitment-step__icon img {
+  display: block;
+  inline-size: 54px;
+  block-size: 54px;
+  object-fit: contain;
+}
+
+.recruitment-step__title {
+  font-size: 17px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.recruitment-step__bullet {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.recruitment-step__description {
+  min-inline-size: 0;
+  color: var(--color-recruitment-text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.recruitment-step--locked .recruitment-step__description {
+  color: #9a9a9a;
+}
+
+.status-badge {
+  min-inline-size: 96px;
+  min-block-size: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 999px;
+  padding-inline: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-badge__marker {
+  inline-size: 17px;
+  block-size: 17px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.status-badge--success {
+  background: #d9f5dc;
+  color: #2f9d3b;
+}
+
+.status-badge--success .status-badge__marker {
+  background: #43aa4d;
+  color: white;
+}
+
+.status-badge--neutral {
+  background: #efefef;
+  color: #8b8b8b;
+}
+
+.status-badge--neutral .status-badge__marker {
+  color: #8b8b8b;
+}
+
+.status-badge--pending {
+  background: #fff0e8;
+  color: #f28b4b;
+}
+
+.status-badge--pending .status-badge__marker {
+  border: 1.5px solid currentColor;
+  color: currentColor;
+}
+
+.status-badge--danger {
+  background: #ffe1e3;
+  color: var(--color-code-error);
+}
+
+.status-badge--danger .status-badge__marker {
+  background: #f05261;
+  color: white;
+}
+
+.recruitment-process-card__extra {
+  margin-block-start: 44px;
+}
+
+@media (max-width: 1200px) {
+  .recruitment-step__surface {
+    grid-template-columns: 54px minmax(160px, max-content) 10px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+  .recruitment-step__title {
+    font-size: 15px;
+  }
+  .recruitment-step__description {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 800px) {
+  .recruitment-process-card {
+    min-block-size: 0;
+    padding: 24px 20px 30px;
+    border-radius: 16px;
+  }
+
+  .recruitment-process-card__withdraw-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .recruitment-steps {
+    gap: 26px;
+  }
+
+  .recruitment-step:not(:last-child)::after {
+    block-size: 28px;
+  }
+
+  .recruitment-step__surface {
+    grid-template-columns: 52px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "icon title badge"
+      "icon description description";
+    gap: 5px 12px;
+    min-block-size: 94px;
+  }
+
+  .recruitment-step__icon { grid-area: icon; }
+  .recruitment-step__title { grid-area: title; white-space: normal; }
+  .recruitment-step__bullet { display: none; }
+  .recruitment-step__description { grid-area: description; }
+  .status-badge { grid-area: badge; min-inline-size: 88px; }
+}
+
+@media (max-width: 520px) {
+  .recruitment-process-card {
+    padding-inline: 14px;
+  }
+
+  .recruitment-process-card__title {
+    font-size: 19px;
+  }
+
+  .recruitment-process-card__intro,
+  .recruitment-process-card__withdraw-row p {
+    font-size: 13px;
+  }
+
+  .recruitment-step__surface {
+    grid-template-columns: 46px minmax(0, 1fr);
+    grid-template-areas:
+      "icon title"
+      "icon description"
+      "badge badge";
+    padding: 10px 12px;
+  }
+
+  .recruitment-step__icon,
+  .recruitment-step__icon img {
+    inline-size: 46px;
+    block-size: 46px;
+  }
+
+  .status-badge {
+    justify-self: start;
+    margin-block-start: 4px;
+  }
+
+  .recruitment-step:not(:last-child)::after {
+    inset-inline-start: 23px;
+  }
+}
+
+.recruitment-rejection-message {
+  padding-inline: 18px;
+  color: var(--color-ink);
+}
+
+.recruitment-rejection-message h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 2;
+}
+
+.recruitment-rejection-message p {
+  margin: 12px 0 0;
+  color: var(--color-recruitment-text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 2;
+}
+
+.status-badge--locked {
+  background: #f2f3f5;
+  color: #8b8f98;
+}
+
+.status-badge--locked .status-badge__marker {
+  border: 1.5px solid currentColor;
+  color: currentColor;
+}
+
+.recruitment-progress--compact .recruitment-step__surface {
+  min-block-size: 74px;
+}
+
+@media (min-width: 1100px) {
+  .recruitment-progress--dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .recruitment-progress--dashboard .recruitment-step::after {
+    display: none;
+  }
+
+  .recruitment-progress--dashboard .recruitment-step__surface {
+    grid-template-columns: 46px minmax(0, 1fr);
+    grid-template-areas:
+      "icon title"
+      "icon description"
+      "badge badge";
+    min-block-size: 126px;
+    align-content: center;
+  }
+
+  .recruitment-progress--dashboard .recruitment-step__icon {
+    grid-area: icon;
+    inline-size: 46px;
+    block-size: 46px;
+  }
+
+  .recruitment-progress--dashboard .recruitment-step__icon img {
+    inline-size: 46px;
+    block-size: 46px;
+  }
+
+  .recruitment-progress--dashboard .recruitment-step__title { grid-area: title; white-space: normal; }
+  .recruitment-progress--dashboard .recruitment-step__bullet { display: none; }
+  .recruitment-progress--dashboard .recruitment-step__description { grid-area: description; }
+  .recruitment-progress--dashboard .status-badge { grid-area: badge; justify-self: start; margin-block-start: 8px; }
+}
+
+/* Interactive recruitment stages reuse the same card visual language. */
+a.recruitment-step__surface {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.recruitment-step__surface:focus-visible,
+a.recruitment-step__surface:focus-visible {
+  outline: 3px solid rgb(78 144 244 / 32%);
+  outline-offset: 3px;
+}
+
+button.recruitment-step__surface:hover,
+a.recruitment-step__surface:hover {
+  box-shadow: 0 0 0 3px rgb(78 144 244 / 10%);
+}
+
+.status-badge__marker img {
+  display: block;
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.status-badge--pending .status-badge__marker {
+  border: 0;
+  background: transparent;
+}
+
+/* Keep supplied process artwork sharp even when the stage itself is locked. */
+.recruitment-step__icon img,
+.recruitment-step--locked .recruitment-step__icon img {
+  filter: none;
+  opacity: 1;
+}
