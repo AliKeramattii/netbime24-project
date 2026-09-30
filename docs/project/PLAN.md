@@ -117,9 +117,14 @@ Acceptance: `/api/me/context` answers 200 with the cookie from the browser; flag
 Status: BLOCKED · Priority: CRITICAL · Estimate: 1 h · Deadline: TBD · Depends: EXTERNAL: BACKEND accepts `POST /api/registration`; session cookie reachable (proxy or API-06) · [task](tasks/phase-03/REG-03-real-registration-submit.md)
 Acceptance: real registration saved (visible via `/api/me/context`); flag false; `temporary-registration.js` deleted; `npm test` green.
 
+#### AUTH-LOGOUT-LOCAL — Logout without a backend endpoint (TEMPORARY local session clear)
+Status: COMPLETE (2026-09-30) · Priority: HIGH · Estimate: 1.5 h · Deadline: 2026-09-30 · Depends: — · [task](tasks/phase-03/AUTH-LOGOUT-LOCAL-local-logout.md)
+Objective: header, sidebar and registration-success logout work with no API call, in every `MOCK_SESSION` setting (D-018).
+Acceptance: all sessionStorage session keys removed, dashboard context cleared, `location.replace` to login; OTP limit kept; direct open of Moarefe/Interview afterwards → login; QA check; browser-tested.
+
 #### API-07 — Implement `logout` in `js/api/real-api.js` against `POST /api/auth/logout`
 Status: BLOCKED · Priority: HIGH · Estimate: 1.5 h · Deadline: TBD · Depends: EXTERNAL: BACKEND logout endpoint · [task](tasks/phase-03/API-07-logout.md)
-Acceptance: logout clears the HttpOnly cookie server-side; next `/api/me/context` → 401; UI returns to login.
+Acceptance: logout clears the HttpOnly cookie server-side and still runs `clearLocalSession()` (replaces the TEMPORARY `localLogout`, D-018); next `/api/me/context` → 401; UI returns to login.
 
 #### API-08 — Remove the temporary session (`MOCK_SESSION = false`)
 Status: NOT_STARTED · Priority: HIGH · Estimate: 1 h · Deadline: TBD · Depends: API-07; cookie reachable (proxy or API-06)

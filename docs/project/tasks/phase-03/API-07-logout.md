@@ -10,7 +10,8 @@ Dependencies:
 Real logout: the HttpOnly session cookie is cleared by the backend (JavaScript cannot clear it).
 
 ## Acceptance Criteria
-- `logout` calls `POST /api/auth/logout` with credentials; replaces `unconfigured`.
+- `logout` calls `POST /api/auth/logout` with credentials, then `clearLocalSession()`; replaces the
+  TEMPORARY `localLogout` from AUTH-LOGOUT-LOCAL (D-018) and removes its TEMPORARY comments.
 - After logout `/api/me/context` → 401 and the UI returns to login (`app-shell.js`, `js/app.js`).
 - Failure shows the existing Persian error; `npm test` green.
 - Follow-up API-08 (remove `MOCK_SESSION`) unblocked.

@@ -10,7 +10,8 @@
     "test:enhancements": "node qa/verify-scheduling-navigation-font.mjs",
     "test:assets": "node qa/verify-static-assets.mjs",
     "test:syntax": "node qa/verify-syntax.mjs",
-    "test:all": "npm run test:flow && npm run test:enhancements && npm run test:assets && npm run test:modules && npm run test:architecture && npm run test:syntax",
+    "test:all": "npm run test:flow && npm run test:enhancements && npm run test:assets && npm run test:modules && npm run test:architecture && npm run test:syntax && npm run test:logout",
+    "test:logout": "node qa/verify-local-logout.mjs",
     "test:modules": "node qa/verify-module-graph.mjs",
     "test:architecture": "node qa/verify-html-first-architecture.mjs"
   },

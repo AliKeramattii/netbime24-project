@@ -38,7 +38,8 @@ Talk to the user (Atefe) in **Persian**. Code, comments and docs are in English;
   `temporary-registration.js` / `temporary-session.js` / `temporary-appointments.js`, switched by
   `MOCK_REGISTRATION_SUBMIT` / `MOCK_SESSION` / `MOCK_APPOINTMENT_FLOW`. Missing backend methods in
   `real-api.js` return `API_NOT_CONFIGURED` (`unconfigured`). The only transport is
-  `js/api/http.js`; errors are normalized in `js/api/errors.js`. API functions resolve to
+  `js/api/http.js`; errors are normalized in `js/api/errors.js`. `logout` is a TEMPORARY local
+  session clear (`js/local-session.js`, no API call, D-018) until `POST /api/auth/logout` exists. API functions resolve to
   `{ success: true, … }` or `{ success: false, code, message, status, details, fieldErrors }` and
   never throw.
 - **Backend auth — two modes** (the comments in `config.js` and `proxy/*` are authoritative):
@@ -89,7 +90,7 @@ fonts (`css/typography.css`). Node.js ≥ 20 only for `qa/*.mjs` and the zero-de
 | Dev server (proxy mode) | `npm run dev` → `node proxy/server.js` on http://127.0.0.1:5510. Refuses to start without `NETBIME_PRIVATE_KEY` (env or git-ignored `proxy/.env`). Live Server on :5500 cannot reach the API in proxy mode. |
 | Direct mode locally | Any static server on the repo root (no script exists). |
 | All tests | `npm test` (= `test:all`) |
-| Single suites | `npm run test:flow`, `test:enhancements`, `test:assets`, `test:modules`, `test:architecture`, `test:syntax` |
+| Single suites | `npm run test:flow`, `test:enhancements`, `test:assets`, `test:modules`, `test:architecture`, `test:syntax`, `test:logout` |
 | Lint / format | **None configured.** Match the surrounding style by hand; do not add tools without approval. |
 | Type check | **None** (plain JS). `npm run test:syntax` checks syntax. |
 | Build | **None** — files are served as-is. |

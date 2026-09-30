@@ -1,6 +1,6 @@
 # Progress — current position
 
-**Last Updated:** 2026-09-30 (OD-1 closed: direct mode, D-017; initial git import)
+**Last Updated:** 2026-09-30 (OD-1 closed: direct mode, D-017; local logout AUTH-LOGOUT-LOCAL, D-018)
 
 ## Current Phase
 Phase 2 — Security & Deployment Architecture (IN_PROGRESS, deadline 2026-10-01)
@@ -20,12 +20,13 @@ Frontend feature work of Phase 1 is complete. **Direct mode** is the decided mod
 - `test:flow` — FAIL 2/63 (`sidebar keeps Moarefe navigable`, `sidebar keeps Interview navigable`;
   the links exist but the markup wraps `>جلسه معارفه</a\n>`, which the string check misses).
 - Because `test:all` chains with `&&`, the rest did not run; run separately they all PASS:
-  `test:enhancements` 45, `test:assets` 102, `test:modules` 157, `test:architecture` 201, `test:syntax` 63.
+  `test:enhancements` 45, `test:assets` 102, `test:modules` 159, `test:architecture` 204, `test:syntax` 65,
+  `test:logout` 37 (new, AUTH-LOGOUT-LOCAL).
 
 ## Overall Progress
 Method: completed tasks ÷ planned tasks (see ROADMAP.md).
-- Overall: 19 / 47 = **40 %** (SEC-07 cancelled, not counted)
-- Deadline scope (phases 1–5): 19 / 44 = **43 %**
+- Overall: 20 / 48 = **42 %** (SEC-07 cancelled, not counted; AUTH-LOGOUT-LOCAL added and done)
+- Deadline scope (phases 1–5): 20 / 45 = **44 %**
 - Estimated remaining effort (phases 2–5): **33.75 h** (estimates, not actuals), of which
   - 19.25 h internal work (needs only a phone number from the user),
   - 2.5 h needs the client (server access, sign-off),
@@ -36,7 +37,7 @@ Method: completed tasks ÷ planned tasks (see ROADMAP.md).
 | --- | --- | --- |
 | 1 Foundation & Core Frontend | 17/17 = 100 % | COMPLETE |
 | 2 Security & Deployment Architecture | 2/9 = 22 % | IN_PROGRESS |
-| 3 Backend Integration & E2E | 0/9 = 0 % | BLOCKED |
+| 3 Backend Integration & E2E | 1/10 = 10 % | BLOCKED |
 | 4 Production Hardening | 0/3 = 0 % | NOT_STARTED |
 | 5 Client Handover & Deployment | 0/6 = 0 % | NOT_STARTED |
 | 6 Remaining Recruitment Stages | 0/3 = 0 % | NOT_STARTED (out of scope) |
@@ -59,6 +60,7 @@ Real registration saving (REG-03), logout (API-07/08), appointments (APPT-02..04
 out of scope.
 
 ## Completed Recently
+- 2026-09-30 — AUTH-LOGOUT-LOCAL: logout works without an API (local session clear, D-018); QA + browser-tested.
 - 2026-09-30 — SEC-03: direct mode decided by the user (D-017); OD-1 closed; SEC-07 cancelled.
 - 2026-09-30 — DOC-01: planning system + CLAUDE.md created; `plan.md` migrated and deleted.
 - 2026-09-30 — SEC-01 proxy, SEC-02 direct mode, API-05 temporary simulations (per code).
@@ -92,7 +94,7 @@ Phase 4: SEC-09, UI-05, QA-05 (SEC-07 cancelled). Phase 5: DEPLOY-01 … DEPLOY-
 ## Deployment Readiness — NOT READY
 1. Direct mode (D-017): the key is public in the browser until rotated/replaced (SEC-05/06).
 2. Registrations are not saved by the backend yet (REG-03, OD-3).
-3. Logout, withdraw and appointments are browser simulations (Phase 3).
+3. Logout is local only (backend cookie not cleared, API-07); withdraw and appointments are browser simulations (Phase 3).
 4. No deployment guide, config reference or package script (DEPLOY-01…04).
 5. No server-side OTP limit (backend/IIS, OD-2), no CSP (SEC-09); HTTPS on the client server unconfirmed.
 6. `npm test` not green (QA-02).

@@ -7,9 +7,9 @@ import { renderRegistration, updateCountdown } from "./register.js";
 import { renderIdentityContactRegistration } from "./registration-identity-contact.js";
 import { renderEducationEmploymentRegistration } from "./registration-education-employment.js";
 import { showInformation } from "./components.js";
-import { STORAGE_KEYS } from "./storage-keys.js";
 import { APP_ROUTES } from "../shared/dashboard/app-routes.js";
 import { invalidateDashboardContext } from "../shared/dashboard/dashboard-context.js";
+import { clearLocalSession } from "./local-session.js";
 
 const entryLayout = document.querySelector("#entry-layout");
 const workspace = document.querySelector("#registration-workspace");
@@ -94,7 +94,7 @@ appHeader.addEventListener("netbime:profile-action", async (event) => {
       return;
     }
     invalidateDashboardContext();
-    try { sessionStorage.removeItem(STORAGE_KEYS.registration); } catch { /* storage is optional */ }
+    clearLocalSession();
     window.location.replace(APP_ROUTES.auth);
   }
 });

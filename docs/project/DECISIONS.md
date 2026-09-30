@@ -110,6 +110,16 @@ CRITICAL). Consequences:
 - The proxy (D-005) stays in the repo; switching later = SEC-06 proxy branch + a new decision.
   SEC-04 (client server details) is still needed for the deployment guide and a later switch.
 
+### D-018 — Local logout until the backend has a logout endpoint (2026-09-30, approved by the user)
+Swagger has no `POST /api/auth/logout`. Logout is TEMPORARY and local only (`js/local-session.js`):
+remove the sessionStorage session keys (`temporarySession`, `temporaryAppointments`,
+`registration`, `moarefe`, `interview`), clear the cached dashboard context, `location.replace`
+to `index.html`. No API call; independent of `MOCK_SESSION`; `real-api.js` `logout` = `localLogout`.
+The OTP send limit (localStorage) is kept so logout cannot reset it. Without cross-origin cookies,
+a missing session user means "signed out" at once (no `/me/context` round trip), and dashboard
+pages restored from the back-forward cache reload. Limitation: a backend HttpOnly cookie (proxy
+mode, or after API-06) survives until API-07 calls the real endpoint. Task: AUTH-LOGOUT-LOCAL.
+
 ## Discrepancies found during migration (2026-09-30)
 
 | plan.md said | Repository shows | Handling |
@@ -129,3 +139,6 @@ CRITICAL). Consequences:
 - 2026-09-30 — OD-1 closed by D-017 (direct mode). SEC-03 → COMPLETE; SEC-07 → CANCELLED (3 h
   removed; server-side OTP limit moves to backend/IIS, OD-2); API-06 no longer conditional.
   Planned tasks 48 → 47. CLAUDE.md gained the "Session start" rules (§0).
+- 2026-09-30 — Added AUTH-LOGOUT-LOCAL (Phase 3, HIGH) and completed it the same day (D-018);
+  API-07 (real logout endpoint) stays BLOCKED on the backend. Planned tasks 47 → 48. New QA script
+  `qa/verify-local-logout.mjs` (`npm run test:logout`, chained in `test:all`).

@@ -1,6 +1,6 @@
 import { api } from "../../js/api.js";
 import { APP_ROUTES } from "./app-routes.js";
-import { STORAGE_KEYS } from "../../js/storage-keys.js";
+import { clearLocalSession } from "../../js/local-session.js";
 import { readTextTemplate } from "../../js/html.js";
 import {
   getDashboardContext,
@@ -63,7 +63,7 @@ async function logout() {
     if (!result?.success) throw new Error(result?.message || shellCopy("logout-failed"));
     invalidateDashboardContext();
     shellPromise = null;
-    try { sessionStorage.removeItem(STORAGE_KEYS.registration); } catch { /* storage is optional */ }
+    clearLocalSession();
     if (typeof window !== "undefined") window.location.replace(APP_ROUTES.auth);
   } catch (error) {
     announce(error.message || shellCopy("logout-failed-retry"));

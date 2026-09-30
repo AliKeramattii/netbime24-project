@@ -6,19 +6,11 @@
 //   - after OTP verification of an EXISTING user, the user returned by the backend
 //     (VerifyOtpResponse.user = Swagger UserInfo) is kept in sessionStorage and used as the
 //     dashboard context. With CROSS_ORIGIN_COOKIES on, the real /api/me/context is tried first.
-//   - logout clears this browser session (registration draft, session user, simulated steps).
+//   - logout is the local session clear of real-api.js (js/local-session.js).
 // Stored data is user info only (no token, no key). To remove: set MOCK_SESSION to false and
 // delete this file once cookies work cross-origin and POST /api/auth/logout exists.
 import { CROSS_ORIGIN_COOKIES } from "./config.js";
 import { STORAGE_KEYS } from "../storage-keys.js";
-
-const SESSION_KEYS = [
-  STORAGE_KEYS.temporarySession,
-  STORAGE_KEYS.temporaryAppointments,
-  STORAGE_KEYS.registration,
-  STORAGE_KEYS.moarefe,
-  STORAGE_KEYS.interview,
-];
 
 const text = (value) => (typeof value === "string" ? value.trim() : "");
 
@@ -36,12 +28,6 @@ function writeUser(user) {
     sessionStorage.setItem(STORAGE_KEYS.temporarySession, JSON.stringify({ user }));
   } catch {
     /* Storage unavailable: the session lasts for this page only. */
-  }
-}
-
-function clearSession() {
-  for (const key of SESSION_KEYS) {
-    try { sessionStorage.removeItem(key); } catch { /* storage is optional */ }
   }
 }
 
@@ -80,16 +66,14 @@ export function withTemporarySession(api) {
   async function getDashboardContext() {
     const user = readUser();
     // Without cross-origin cookies the real call can only answer 401; skip the round trip.
-    if (user && !CROSS_ORIGIN_COOKIES) return contextFromUser(user);
+    // No session user (never signed in, or logged out) then means signed out -> login page.
+    if (!CROSS_ORIGIN_COOKIES) {
+      return user ? contextFromUser(user) : { success: true, authenticated: false, user: null };
+    }
     const context = await api.getDashboardContext();
     if (context?.success && context.authenticated === true && context.user) return context;
     return user ? contextFromUser(user) : context;
   }
 
-  async function logout() {
-    clearSession();
-    return { success: true };
-  }
-
-  return Object.freeze({ ...api, verifyVerificationCode, getDashboardContext, logout });
+  return Object.freeze({ ...api, verifyVerificationCode, getDashboardContext });
 }

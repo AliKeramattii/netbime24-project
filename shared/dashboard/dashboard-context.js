@@ -59,7 +59,20 @@ export function initializeDashboardContext() {
   return getDashboardContext();
 }
 
+let backForwardGuarded = false;
+
+// A page restored from the back-forward cache skips this check; after logout, Back must not
+// show the previous user, so a restored dashboard page reloads and is checked again.
+function guardBackForwardCache() {
+  if (backForwardGuarded || typeof window === "undefined") return;
+  backForwardGuarded = true;
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) window.location.reload();
+  });
+}
+
 export async function ensureDashboardAccess({ refresh = false, moduleId = null, recruitmentStageId = null } = {}) {
+  guardBackForwardCache();
   const context = refresh ? await refreshDashboardContext() : await getDashboardContext();
   if (!context?.success) {
     if (context?.code === "UNAUTHORIZED") {

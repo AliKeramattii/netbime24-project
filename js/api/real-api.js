@@ -1,6 +1,7 @@
 import { failure } from "./errors.js";
 import { apiRequest } from "./http.js";
 import { normalizeRecruitment } from "../../shared/recruitment/recruitment-state.js";
+import { localLogout } from "../local-session.js";
 
 const unconfigured = async () =>
   failure("API_NOT_CONFIGURED", "اتصال سرویس واقعی هنوز پیکربندی نشده است.");
@@ -225,5 +226,6 @@ export const realApi = Object.freeze({
   getInterviewAvailability: unconfigured,
   submitInterviewRequest: unconfigured,
   withdrawRecruitment: unconfigured,
-  logout: unconfigured,
+  // TEMPORARY: local-only logout until POST /api/auth/logout exists (API-07).
+  logout: localLogout,
 });

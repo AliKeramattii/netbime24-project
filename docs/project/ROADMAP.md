@@ -11,12 +11,12 @@ estimates. Remaining effort is still tracked in estimated hours.
 | --- | --- | --- | --- | --- | --- |
 | 1 | Foundation & Core Frontend | COMPLETE | ≤ 2026-09-30 | 0 h | 100 % (17/17) |
 | 2 | Security & Deployment Architecture | IN_PROGRESS | 2026-10-01 | 4.75 h | 22 % (2/9) |
-| 3 | Backend Integration & End-to-End | BLOCKED | 2026-10-02 (internal) / TBD (backend) | 13.5 h | 0 % (0/9) |
+| 3 | Backend Integration & End-to-End | BLOCKED | 2026-10-02 (internal) / TBD (backend) | 13.5 h | 10 % (1/10) |
 | 4 | Production Hardening | NOT_STARTED | 2026-10-02 | 5.5 h | 0 % (0/3; SEC-07 cancelled) |
 | 5 | Client Handover & Deployment | NOT_STARTED | 2026-10-03 | 10 h | 0 % (0/6) |
 | 6 | Remaining Recruitment Stages | NOT_STARTED | TBD (after 2026-10-03) | TBD | 0 % (0/3) |
 
-Overall: **19 / 47 tasks = 40 %**. Deadline scope (phases 1–5): **19 / 44 = 43 %**.
+Overall: **20 / 48 tasks = 42 %**. Deadline scope (phases 1–5): **20 / 45 = 44 %**.
 CANCELLED tasks stay listed in PLAN.md but are not counted as planned.
 
 ---
@@ -37,7 +37,7 @@ CANCELLED tasks stay listed in PLAN.md but are not counted as planned.
 
 ## Phase 3 — Backend Integration & End-to-End
 - Objective: prove the real flow with a real phone and replace the `MOCK_*` simulations.
-- Status: BLOCKED (7 of 9 tasks wait on the backend) · Deadline: 2026-10-02 for QA-04; TBD for backend items · Estimate: 13.5 h (12 h backend-dependent) · Progress: 0 %
+- Status: BLOCKED (7 of 10 tasks wait on the backend; AUTH-LOGOUT-LOCAL done) · Deadline: 2026-10-02 for QA-04; TBD for backend items · Estimate: 13.5 h (12 h backend-dependent) · Progress: 10 %
 - Dependencies: BACKEND (registration fix, logout, withdraw, appointments, CORS credentials), USER phone number.
 - Deliverables: E2E report; real registration, logout, withdraw, appointments; temporary modules deleted.
 
