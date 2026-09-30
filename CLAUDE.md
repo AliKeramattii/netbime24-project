@@ -152,8 +152,9 @@ Note: `test:all` chains with `&&`, so it stops at the first failing script — r
 
 ## 9. Git and change management
 
-- Remote: `origin` = https://github.com/AliKeramattii/netbime24-project (empty as of 2026-09-30;
-  source came from a zip). Local repo on `main`, nothing committed yet.
+- Remote: `origin` = https://github.com/AliKeramattii/netbime24-project (**public** repository;
+  default branch `main`, first push 2026-09-30; source came from a zip). Push access via the
+  `atefekalamati` account (collaborator).
 - Before **every** commit (especially the first): `git status --ignored` and confirm
   `proxy/.env`, `js/api/private-key.js` and `*.zip` are ignored and not staged.
 - Work on feature branches (e.g. `fix/qa-02-sidebar-checks`); small focused commits with clear
@@ -212,6 +213,9 @@ Requests:
 - `contact.postalCode` is required; the backend reports one validation error at a time.
   `EmploymentRecordDto.startYear/startMonth` are non-nullable ints.
 - Error formats: see `js/api/errors.js`.
+- CORS allows only the origin `https://ramatest.ir` (checked 2026-09-30); `localhost` /
+  `127.0.0.1` origins get no `Access-Control-Allow-Origin` → the real login cannot be tested
+  locally in direct mode (use proxy mode or a seeded session for local UI checks).
 - First request after idle can take ~20 s (2026-09-30) → `REQUEST_TIMEOUT_MS = 30000`.
 - curl E2E: fresh token per request; keep cookies between OTP verify and later calls
   (`-c`/`-b cookies.txt`).

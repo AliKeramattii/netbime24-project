@@ -1,6 +1,6 @@
 # Progress — current position
 
-**Last Updated:** 2026-09-30 (OD-1 closed: direct mode, D-017; local logout AUTH-LOGOUT-LOCAL, D-018)
+**Last Updated:** 2026-09-30 (first push to GitHub; OD-1 closed: direct mode, D-017; local logout, D-018)
 
 ## Current Phase
 Phase 2 — Security & Deployment Architecture (IN_PROGRESS, deadline 2026-10-01)
@@ -10,6 +10,14 @@ M2.3 — QA baseline green (deadline 2026-09-30). M2.1 mode decision done (direc
 
 ## Current Task
 QA-02 — Fix the 2 failing sidebar checks → [task file](tasks/phase-02/QA-02-fix-sidebar-checks.md)
+
+## Repository
+- GitHub: https://github.com/AliKeramattii/netbime24-project (public), default branch `main`.
+- First push 2026-09-30 by `atefekalamati` (collaborator): `868b873` initial import, `19d9038`
+  AUTH-LOGOUT-LOCAL. Verified: remote `main` = local HEAD; `proxy/.env`, `js/api/private-key.js`
+  and the source zip are not in the repository.
+- Local only, never commit: `js/api/config.js` is temporarily in proxy mode for local OTP testing
+  (`npm run dev`, http://127.0.0.1:5510) because the backend CORS allows only `https://ramatest.ir`.
 
 ## Current Status
 Frontend feature work of Phase 1 is complete. **Direct mode** is the decided mode for now (D-017,
@@ -60,6 +68,7 @@ Real registration saving (REG-03), logout (API-07/08), appointments (APPT-02..04
 out of scope.
 
 ## Completed Recently
+- 2026-09-30 — Repository pushed to GitHub (`main`, public); secrets verified absent.
 - 2026-09-30 — AUTH-LOGOUT-LOCAL: logout works without an API (local session clear, D-018); QA + browser-tested.
 - 2026-09-30 — SEC-03: direct mode decided by the user (D-017); OD-1 closed; SEC-07 cancelled.
 - 2026-09-30 — DOC-01: planning system + CLAUDE.md created; `plan.md` migrated and deleted.
